@@ -2,8 +2,7 @@ Author:
     Alberto Tontoni
 
 Description:
-    Switch ON/OFF the built-in blue LED based on whether a pushbutton is pressed or not.
-	The button GPIO pin is configured using the internal PullUp resistor.
+	This program shows how to send commands and display characters on a HD44780 16x2 LCD display.
 
 Requirements:
     -Freescale FRDM-KL25Z development board with CMSIS-DAP debug/programming app.
@@ -32,3 +31,4 @@ Requirements:
 
 Credits:
     Chen et al. - "Freescale ARM Cortex-M Embedded Programming Using C Language"
+	HD44780 Instruction Set - https://mil.ufl.edu/3744/docs/lcdmanual/commands.html
