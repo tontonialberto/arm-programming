@@ -1,0 +1,10 @@
+*.map
+*.uvguix
+*.uvguix.*
+*.hex
+*.o
+*.d
+*.axf
+*.dep
+Objects/
+Blinky/
