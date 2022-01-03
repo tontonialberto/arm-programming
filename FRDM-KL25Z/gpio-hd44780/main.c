@@ -27,9 +27,29 @@ void delayMs(uint32_t ms);
 
 void LCD_Command(uint8_t command);
 
-// WriteDigit(uint8_t digit)
-// WriteChar(uint8_t char)
-// WriteString(const char *str)
+void LCD_Data(uint8_t data);
+
+/**
+Precondition:
+	-digit is a digit between 0 and 9
+	-LCD cursor at pos. N
+Postcondition:
+	-The character corresponding to the digit
+		is printed on the screen
+	-LCD cursor at pos. N+1
+*/
+void LCD_WriteDigit(int8_t digit);
+
+// Write a string in a left-to-right fashion
+void LCD_WriteString(const char *str);
+
+// LCD_WriteNumber(uint32_t number)
+void LCD_WriteNumber(uint32_t number);
+
+// Sets the cursor in the given row-column config
+// NB: 	line is either 0 or 1
+// 			pos should be between 0 and 15
+void LCD_SetCursor(uint8_t line, uint8_t pos);
 
 int main() {
 	SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTE_MASK;
@@ -75,8 +95,20 @@ int main() {
 	// Set 8-bit mode
 	LCD_Command(0x30);
 	
+	// 8-bit mode, 2 display lines
+	LCD_Command(0x38);
+	
+	// Clear display and cursor home
+	LCD_Command(0x1);
+	
 	// Set blinking cursor
 	LCD_Command(0xf);
+	
+	LCD_WriteString("Hello, I'm Alber");
+	LCD_Command(0xC0);
+	LCD_WriteString("to, ");
+	LCD_WriteNumber(23U);
+	LCD_WriteString(" years");
 	
 	while(1) {
 		__ASM("nop");
@@ -109,4 +141,66 @@ void LCD_Command(uint8_t command) {
 	GPIOE->PCOR = (1 << PIN_E);
 	// 4. Wait to ensure the LCD has processed the command
 	delayMs(10);
+}
+
+void LCD_Data(uint8_t data) {
+	// Write on data register
+	GPIOE->PSOR = (1 << PIN_RS);
+	GPIOE->PCOR = (1 << PIN_RW);
+	
+	// Write on data bits
+	GPIOB->PDOR = ((uint32_t)(data & 0xf) << SHIFT_D03) | ((uint32_t)((data & 0xf0) >> 4) << SHIFT_D47);
+
+	// Send pulse
+	GPIOE->PCOR = (1 << PIN_E);
+	delayMs(0);
+	GPIOE->PSOR = (1 << PIN_E);
+	delayMs(0);
+	GPIOE->PCOR = (1 << PIN_E);
+	
+	// Wait to complete
+	delayMs(10);
+}
+
+void LCD_WriteDigit(int8_t digit) {
+	if(digit < 0 || digit > 9) {
+		return;
+	}
+	
+	if(digit == 0) LCD_Data('0');
+	else if (digit == 1) LCD_Data('1');
+	else if (digit == 2) LCD_Data('2');
+	else if (digit == 3) LCD_Data('3');
+	else if (digit == 4) LCD_Data('4');
+	else if (digit == 5) LCD_Data('5');
+	else if (digit == 6) LCD_Data('6');
+	else if (digit == 7) LCD_Data('7');
+	else if (digit == 8) LCD_Data('8');
+	else if (digit == 9) LCD_Data('9');
+}
+
+void LCD_WriteString(const char *str) {
+	while(*str != 0) {
+		LCD_Data((uint8_t)*str);
+		++str;
+	}
+}
+
+void LCD_SetCursor(uint8_t line, uint8_t pos) {
+	if(line > 1) return;
+	
+	uint8_t base;
+	
+	if(line == 0) base = 0x80;
+	else base = 0xC0;
+	
+	LCD_Command(base + pos);
+}
+
+void LCD_WriteNumber(uint32_t number) {
+	if(number == 0) return;
+	
+	LCD_WriteNumber(number / 10U);
+	
+	LCD_WriteDigit(number % 10);
 }
