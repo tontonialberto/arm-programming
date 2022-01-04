@@ -46,10 +46,14 @@ void LCD_WriteString(const char *str);
 // LCD_WriteNumber(uint32_t number)
 void LCD_WriteNumber(uint32_t number);
 
-// Sets the cursor in the given row-column config
+// Sets the cursor to the given row-column config
 // NB: 	line is either 0 or 1
 // 			pos should be between 0 and 15
 void LCD_SetCursor(uint8_t line, uint8_t pos);
+
+// Waits until the busy flag of the LCD display
+// becomes 0.
+void LCD_WaitBusy(void);
 
 int main() {
 	SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTE_MASK;
@@ -140,7 +144,7 @@ void LCD_Command(uint8_t command) {
 	delayMs(0);
 	GPIOE->PCOR = (1 << PIN_E);
 	// 4. Wait to ensure the LCD has processed the command
-	delayMs(10);
+	LCD_WaitBusy();
 }
 
 void LCD_Data(uint8_t data) {
@@ -159,7 +163,7 @@ void LCD_Data(uint8_t data) {
 	GPIOE->PCOR = (1 << PIN_E);
 	
 	// Wait to complete
-	delayMs(10);
+	LCD_WaitBusy();
 }
 
 void LCD_WriteDigit(int8_t digit) {
@@ -203,4 +207,35 @@ void LCD_WriteNumber(uint32_t number) {
 	LCD_WriteNumber(number / 10U);
 	
 	LCD_WriteDigit(number % 10);
+}
+
+void LCD_WaitBusy() {
+	uint8_t status, highNibble, lowNibble;
+	
+	// Set data pins to input mode
+	GPIOB->PDDR &= ~MASK_D03;
+	GPIOB->PDDR &= ~MASK_D47;
+	
+	// Read on Cmd register
+	GPIOE->PSOR = (1 << PIN_RW); // RW = 1 (read)
+	GPIOE->PCOR = (1 << PIN_RS); // RS = 0 (cmd register)
+	
+	do {
+		// Start pulse
+		GPIOE->PCOR = (1 << PIN_E);
+		delayMs(0);
+		GPIOE->PSOR = (1 << PIN_E);
+		delayMs(0);
+		
+		// Store D7...D0 into the status variable
+		highNibble = (GPIOB->PDIR & MASK_D47) >> SHIFT_D47;
+		lowNibble = (uint8_t)(GPIOB->PDIR & MASK_D03) >> SHIFT_D03;
+		status = (uint8_t)(highNibble << 4) | (uint8_t)lowNibble; 
+		
+		// End pulse
+		GPIOE->PCOR = (1 << PIN_E);
+	} while( status & (1 << 7) ); // D7 is the Busy flag
+	
+	// Set data pins back to output mode
+	GPIOB->PDDR |= MASK_D03 | MASK_D47;
 }
