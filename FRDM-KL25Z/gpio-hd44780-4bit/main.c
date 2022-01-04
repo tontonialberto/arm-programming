@@ -131,8 +131,7 @@ void LCD_Command(uint8_t command) {
 	LCD_WriteNibble(nibble);
 	
 	// 4. Wait to ensure the LCD has processed the command
-	// LCD_WaitBusy();
-	delayMs(10);
+	LCD_WaitBusy();
 }
 
 void LCD_Data(uint8_t data) {
@@ -145,8 +144,7 @@ void LCD_Data(uint8_t data) {
 	LCD_WriteNibble(data & 0xf);
 	
 	// Wait to complete
-	//LCD_WaitBusy();
-	delayMs(10);
+	LCD_WaitBusy();
 }
 
 void LCD_WriteDigit(int8_t digit) {
@@ -193,34 +191,45 @@ void LCD_WriteNumber(uint32_t number) {
 }
 
 void LCD_WaitBusy() {
-//	uint8_t status, highNibble, lowNibble;
-//	
-//	// Set data pins to input mode
-//	GPIOB->PDDR &= ~MASK_D03;
-//	GPIOB->PDDR &= ~MASK_D47;
-//	
-//	// Read on Cmd register
-//	GPIOE->PSOR = (1 << PIN_RW); // RW = 1 (read)
-//	GPIOE->PCOR = (1 << PIN_RS); // RS = 0 (cmd register)
-//	
-//	do {
-//		// Start pulse
-//		GPIOE->PCOR = (1 << PIN_E);
-//		delayMs(0);
-//		GPIOE->PSOR = (1 << PIN_E);
-//		delayMs(0);
-//		
-//		// Store D7...D0 into the status variable
-//		highNibble = (GPIOB->PDIR & MASK_D47) >> SHIFT_D47;
-//		lowNibble = (uint8_t)(GPIOB->PDIR & MASK_D03) >> SHIFT_D03;
-//		status = (uint8_t)(highNibble << 4) | (uint8_t)lowNibble; 
-//		
-//		// End pulse
-//		GPIOE->PCOR = (1 << PIN_E);
-//	} while( status & (1 << 7) ); // D7 is the Busy flag
-//	
-//	// Set data pins back to output mode
-//	GPIOB->PDDR |= MASK_D03 | MASK_D47;
+	uint8_t status, nibble;
+	
+	// Set data pins to input mode
+	GPIOB->PDDR &= ~MASK_D47;
+	
+	// Read on Cmd register
+	GPIOE->PSOR = (1 << PIN_RW); // RW = 1 (read)
+	GPIOE->PCOR = (1 << PIN_RS); // RS = 0 (cmd register)
+	
+	do {
+		// Start pulse
+		GPIOE->PCOR = (1 << PIN_E);
+		delayMs(0);
+		GPIOE->PSOR = (1 << PIN_E);
+		delayMs(0);
+		
+		// Store D7...D0 into the status variable
+		// Note that in 4-bit mode, the higher nibble is received first
+		nibble = (GPIOB->PDIR & MASK_D47) >> SHIFT_D47;
+		status = (uint8_t)(nibble << 4);
+		
+		// End pulse
+		GPIOE->PCOR = (1 << PIN_E);
+		
+		// Start pulse
+		GPIOE->PCOR = (1 << PIN_E);
+		delayMs(0);
+		GPIOE->PSOR = (1 << PIN_E);
+		delayMs(0);
+		
+		nibble = (GPIOB->PDIR & MASK_D47) >> SHIFT_D47;
+		status |= nibble;
+		
+		// End pulse
+		GPIOE->PCOR = (1 << PIN_E);
+	} while( status & (1 << 7) ); // D7 is the Busy flag
+	
+	// Set data pins back to output mode
+	GPIOB->PDDR |= MASK_D47;
 }
 
 void LCD_WriteNibble(uint8_t byte) {
