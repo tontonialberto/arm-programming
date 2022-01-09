@@ -1,0 +1,3 @@
+[submodule "FRDM-KL25Z/etl-example/etl"]
+	path = FRDM-KL25Z/etl-example/etl
+	url = https://github.com/ETLCPP/etl.git
