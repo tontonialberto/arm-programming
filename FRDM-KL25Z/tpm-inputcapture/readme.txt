@@ -14,7 +14,7 @@ Requirements:
     -Freescale FRDM-KL25Z development board with CMSIS-DAP debug/programming app.
     -Pushbutton Switch
 	-The schematic is as follows:
-		SW -> PTE4
+		SW -> PTA1
 		SW -> GND
 
 Credits:
