@@ -10,4 +10,4 @@ Requirements:
 
 Credits:
     Chen et al. - "Freescale ARM Cortex-M Embedded Programming Using C Language"
-	https://developer.arm.com/documentation/dui0552/a/cortex-m3-peripherals/system-timer--systick/systick-control-and-status-register
+    https://developer.arm.com/documentation/dui0497/a/cortex-m0-peripherals/optional-system-timer--systick
