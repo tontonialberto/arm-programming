@@ -54,6 +54,9 @@ int main() {
 	// 16-bit conversion, clock source is bus clock, short sample time
 	ADC0->CFG1 = ADC_CFG1_MODE(3);
 	
+	// Enable hardware averaging using 32 samples
+	ADC0->SC3 |= ADC_SC3_AVGE_MASK | ADC_SC3_AVGS(3);
+	
 	while(1) {
 		// Select single-ended mode, ADC0_SE3 on PTE22, disable interrupts.
 		// This also starts the conversion.
