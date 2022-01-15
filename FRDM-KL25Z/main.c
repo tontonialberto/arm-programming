@@ -43,20 +43,20 @@ int main() {
 	SIM->SCGC4 |= SIM_SCGC4_I2C1_MASK;
 	SIM->SCGC5 |= SIM_SCGC5_PORTE_MASK;
 	
-	// I2C0 pins on MUX=6 (that is, I2C0)
+	// pins on MUX=6 (that is, I2C1)
 	// Enable pull-up resistors
 	/*
 	PORTE->PCR[PIN_SDA] &= ~PORT_PCR_MUX_MASK 
 		& ~PORT_PCR_PS_MASK 
 		& ~PORT_PCR_PE_MASK;
 	*/
-	PORTE->PCR[PIN_SDA] |= PORT_PCR_MUX(6);
+	PORTE->PCR[PIN_SDA] = PORT_PCR_MUX(6) | PORT_PCR_PS(1) | PORT_PCR_PE(1);
 	/*
 	PORTE->PCR[PIN_SCL] &= ~PORT_PCR_MUX_MASK 
 		& ~PORT_PCR_PS_MASK 
 		& ~PORT_PCR_PE_MASK;
 	*/
-	PORTE->PCR[PIN_SCL] |= PORT_PCR_MUX(6);
+	PORTE->PCR[PIN_SCL] = PORT_PCR_MUX(6) | PORT_PCR_PS(1) | PORT_PCR_PE(1);
 	
 	// Disable I2C module
 	I2C1->C1 &= ~I2C_C1_IICEN_MASK;
@@ -73,12 +73,7 @@ int main() {
 		buffer[0] = REG_WHOAMI;
 		i2cresult = I2C_Write(I2C1, ADDR_MPU6050, buffer, 1, 0);
 		
-		/*
-		do {
-			i2cresult = I2C_Read(I2C1, ADDR_MPU6050, &readByte);
-			//Read buffer[0]
-		} while(BUSY == i2cresult);
-		*/
+		i2cresult = I2C_Read(I2C1, ADDR_MPU6050, &readByte);
 	}
 }
 
@@ -88,7 +83,7 @@ I2C_WriteResult I2C_SendAddress(
 		uint8_t mode) {
 	
 	I2C_WriteResult result = SUCCESS;
-	mode = (uint8_t)(mode << 7); // Ensure that only the LSB is considered
+	mode = (uint8_t)(mode & 0x1); // Ensure that only the LSB is considered
 			
 	if(i2c->S & I2C_S_BUSY_MASK) {
 		result = BUSY;
@@ -172,6 +167,10 @@ I2C_WriteResult I2C_Read(I2C_Type *i2c,
 		// Send NACK on received byte
 		i2c->C1 |= I2C_C1_TXAK_MASK;
 	
+		// Start receiving by accessing the IO register.
+		// If you don't do this, receiving does not start!
+		*out = i2c->D;
+		
 		// Wait until the slave sends a byte
 		while(! (i2c->S & I2C_S_IICIF_MASK) );
 		i2c->S |= I2C_S_IICIF_MASK;
@@ -180,7 +179,7 @@ I2C_WriteResult I2C_Read(I2C_Type *i2c,
 		i2c->C1 |= I2C_C1_TX_MASK;
 		
 		*out = i2c->D;
-		
+	
 		// Issue stop condition
 		i2c->C1 &= ~I2C_C1_MST_MASK & ~I2C_C1_TX_MASK;
 	}
