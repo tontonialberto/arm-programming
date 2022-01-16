@@ -146,6 +146,11 @@ I2C_Result I2C_ReadBurst(
 		// Send ACK on next byte
 		i2c->C1 &= ~I2C_C1_TXAK_MASK;
 		
+		// If there's only 1 byte, send NACK on receiving
+		if(len == 1) {
+			i2c->C1 |= I2C_C1_TXAK_MASK;
+		}
+		
 		// Start receiving by accessing the IO register.
 		// If you don't do this, receiving does not start!
 		dummy[0] = i2c->D;
