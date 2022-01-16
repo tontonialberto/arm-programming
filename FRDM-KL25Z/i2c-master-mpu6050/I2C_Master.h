@@ -50,35 +50,36 @@ I2C_Result I2C_Write(
 	
 	I2C_Result result = I2C_SendAddress(i2c, address, I2C_WRITE);
 	
-	if(SUCCESS == result) {
-		// Transmit the first data byte
-		i2c->D = data[0];
+	for(uint32_t i=0; i<len; i++) {
+		if(SUCCESS == result) {
+			// Transmit the next data byte
+			i2c->D = data[i];
+			
+			// Wait completion of data transmission
+			while(! (i2c->S & I2C_S_IICIF_MASK) );
+			i2c->S |= I2C_S_IICIF_MASK;
+			
+			// Check lost of arbitration
+			if(i2c->S & I2C_S_ARBL_MASK) {
+				i2c->S |= I2C_S_ARBL_MASK; // Clear ARBL flag
+				result = ARB_LOST;
+			}
+		}
 		
-		// Wait completion of data transmission
-		while(! (i2c->S & I2C_S_IICIF_MASK) );
-		i2c->S |= I2C_S_IICIF_MASK;
-		
-		// Check lost of arbitration
-		if(i2c->S & I2C_S_ARBL_MASK) {
-			i2c->S |= I2C_S_ARBL_MASK; // Clear ARBL flag
-			result = ARB_LOST;
+		if(SUCCESS == result) {
+			// Check ack bit from slave
+			if(i2c->S & I2C_S_RXAK_MASK)
+				result = NACK;
 		}
 	}
-	
-	if(SUCCESS == result) {
-		// Check ack bit from slave
-		if(i2c->S & I2C_S_RXAK_MASK) {
-			result = NACK;
-		}
 		
-		if(restart) {
-			// Issue a repeated start condition
-			i2c->C1 |= I2C_C1_RSTA_MASK;
-		}
-		else {
-			// Issue a stop condition
-			i2c->C1 &= ~I2C_C1_MST_MASK & ~I2C_C1_TX_MASK;
-		}
+	if(restart) {
+		// Issue a repeated start condition
+		i2c->C1 |= I2C_C1_RSTA_MASK;
+	}
+	else {
+		// Issue a stop condition
+		i2c->C1 &= ~I2C_C1_MST_MASK & ~I2C_C1_TX_MASK;
 	}
 		
 	return result;
