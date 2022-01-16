@@ -27,6 +27,8 @@ I2C_Result I2C_Read(I2C_Type *i2c,
 	which basically means:
 	1) Write the control byte to the address, issue a restart condition
 	2) Switch to read mode, and read up to len bytes from the slave
+	
+WARNING: for single-byte read, this doesn't work! Use I2C_Read() instead.
 */
 I2C_Result I2C_ReadBurst(
 	I2C_Type *i2c,
@@ -149,14 +151,15 @@ I2C_Result I2C_ReadBurst(
 		dummy[0] = i2c->D;
 		
 		for(uint32_t i=0; i<len; i++) {
-			if(i == len - 1) {
-				// Exit from rx mode before reading the last byte
-				i2c->C1 |= I2C_C1_TX_MASK;
-			}
 			
 			// Wait until the slave sends a byte
 			while(! (i2c->S & I2C_S_IICIF_MASK) );
 			i2c->S |= I2C_S_IICIF_MASK;
+			
+			if(i == len - 1) {
+				// Exit from rx mode before reading the last byte
+				i2c->C1 |= I2C_C1_TX_MASK;
+			}
 			
 			data[i] = i2c->D;
 			
