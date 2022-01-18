@@ -108,8 +108,11 @@ int main() {
 			// Parse pairs of characters and convert to base 10.
 			// Each pair is separated from the others with a space.
 			int i = 0;
-			for(char *ptr = uartBuffer + 6; *ptr != '.'; ptr += 3) {
+			char *ptr = uartBuffer + 6;
+			while(*ptr != '.') {
+				if(*ptr == ' ') ++ptr;
 				buffer[i] = (hexCharToBase10(*ptr) * 16) + hexCharToBase10( *(ptr+1) );
+				ptr += 2;
 				i++;
 			}
 			
