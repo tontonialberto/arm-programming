@@ -1,0 +1,17 @@
+The following commands have been tested to work successfully on a DFR0555 connected to I2C1 (PTE0, PTE1).
+The expected result is to have LCD backlight turned on, and the text "Hello!" shown on the screen.
+
+slave 3e.
+write 80 28.
+write 80 28.
+write 80 28.
+write 80 0c.
+write 80 01.
+write 80 06.
+slave 60.
+write 00 00.
+write 08 ff.
+write 01 20.
+write 02 ff.
+slave 3e.
+write 40 48 65 6c 6c 6f 21.
