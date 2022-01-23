@@ -12,7 +12,7 @@ int main() {
 	// Use OSCERCLK (8MHz) as TPM clock
 	SIM->SOPT2 = SIM_SOPT2_PLLFLLSEL(1) | SIM_SOPT2_TPMSRC(2);
 	
-	// Configure PTB19 as alternate function TPM2_CH0
+	// Configure PTB19 as alternate function TPM2_CH1
 	PORTB->PCR[PIN_LED_GREEN] &= ~PORT_PCR_MUX_MASK;
 	PORTB->PCR[PIN_LED_GREEN] |= PORT_PCR_MUX(3);
 	
