@@ -30,7 +30,7 @@ int main() {
 	// Set PWM period to 10 ms
 	TPM2->MOD = 625 - 1;
 	
-	// Set duty cycle to 8%
+	// Set duty cycle to the minimum
 	TPM2->CONTROLS[1].CnV = 1;
 	
 	// Enable timer
