@@ -9,8 +9,6 @@
 const static uint32_t PIN_SDA = 0;
 const static uint32_t PIN_SCL = 1;
 
-//void bounceLineLCD(const char *str, uint8_t line);
-
 int main() {
 	char buffer[50];
 	I2C_Result i2cres;
@@ -27,12 +25,12 @@ int main() {
 	// Disable I2C module
 	I2C1->C1 &= ~I2C_C1_IICEN_MASK;
 	
-	// Setting I2C1 baud rate at approx 200 kHz
+	// Setting I2C baud rate at approx 200 kHz
 	// Assuming bus clock at 24 MHz (ie. CLOCK_SETUP == 1)
 	// Thus the SCL divider must be approx 120 => ICR = 0x1b
 	I2C1->F = I2C_F_MULT(0) | I2C_F_ICR(0x1b);
 	
-	// Enable I2C0, interrupts disabled
+	// Enable I2C, interrupts disabled
 	I2C1->C1 |= I2C_C1_IICEN_MASK;
 
 	delayMs(100);
