@@ -47,7 +47,17 @@ int main() {
 	oledInit = SSD1306_Init(&oledData);
 	
 	while(1) {
-		delayMs(100);
+		SSD1306_Clear(&oledData);
+		SSD1306_WriteLineHoriz(&oledData, 30, 10, 90);
+		SSD1306_Update(&oledData);
+		
+		delayMs(1000);
+		
+		SSD1306_Clear(&oledData);
+		SSD1306_WriteLineHoriz(&oledData, 30, 20, 90);
+		SSD1306_Update(&oledData);
+		
+		delayMs(1000);
 	}
 }
 
