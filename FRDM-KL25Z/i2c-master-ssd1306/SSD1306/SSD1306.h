@@ -7,7 +7,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "SSD1306_I2C_Interface.h"
+#include "../I2C_Interface.h"
 
 /// \file SSD1306.h
 /// \brief Minimalist I2C driver for SSD1306 128x32 OLED display.
@@ -21,12 +21,13 @@ extern "C" {
 #define SSD1306_PRIVATE_BUFFER_SIZE (uint32_t)100U
 #endif
 
-const uint32_t SSD1306_COLS = 128;
-const uint32_t SSD1306_PAGES = 4;
-const uint32_t SSD1306_BUFFER_SIZE = SSD1306_COLS * SSD1306_PAGES;
-const uint32_t SSD1306_ROWS_PER_PAGE = 8;
-const uint32_t SSD1306_ADDRESS_DEFAULT = 0x3c;
-const uint32_t SSD1306_ROWS = SSD1306_PAGES * SSD1306_ROWS_PER_PAGE;
+#define SSD1306_COLS 					(uint32_t)128
+#define SSD1306_PAGES 				(uint32_t)4
+#define SSD1306_BUFFER_SIZE 	(uint32_t)(SSD1306_COLS * SSD1306_PAGES)
+
+extern const uint32_t SSD1306_ROWS_PER_PAGE;
+extern const uint32_t SSD1306_ADDRESS_DEFAULT;
+extern const uint32_t SSD1306_ROWS;
 
 typedef I2C_Result (* I2C_WriteFun)(uint8_t address, uint8_t *data, uint32_t len, bool restart);
 typedef void (*DelayUsFun)(uint32_t us);

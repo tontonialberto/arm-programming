@@ -2,11 +2,15 @@
 #include <stdlib.h>
 #include "SSD1306_Digits_V0.h"
 
+const uint32_t SSD1306_ROWS_PER_PAGE = 8;
+const uint32_t SSD1306_ADDRESS_DEFAULT = 0x3c;
+const uint32_t SSD1306_ROWS = SSD1306_PAGES * SSD1306_ROWS_PER_PAGE;
+
 static uint8_t privateBuffer[SSD1306_PRIVATE_BUFFER_SIZE];
 
 void SSD1306_Clear(SSD1306_Data *data) {
 
-    for(int i=0; i<SSD1306_BUFFER_SIZE; i++) {
+    for(uint32_t i=0; i<SSD1306_BUFFER_SIZE; i++) {
         data->buffer[i] = 0;
     }
 }

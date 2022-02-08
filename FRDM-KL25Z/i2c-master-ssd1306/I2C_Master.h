@@ -1,19 +1,11 @@
-#ifndef _I2C_MASTER_H
-#define _I2C_MASTER_H
+#ifndef __ALBERTO_TONTONI_I2C_MASTER_H__
+#define __ALBERTO_TONTONI_I2C_MASTER_H__
 
 #include <MKL25Z4.h>
+#include "I2C_Interface.h"
 
 const static uint8_t I2C_READ = 0x1;
 const static uint8_t I2C_WRITE = 0x0;
-
-// BUSY: Another master is using the channel
-// NACK: Slave didn't respond to the last byte
-// ARB_LOST: Another master started transmission.
-enum I2C_Result {
-	SUCCESS = 0, NACK, ARB_LOST, BUSY
-};
-
-typedef enum I2C_Result I2C_Result;
 
 I2C_Result I2C_Write(
 	I2C_Type *i2c,
@@ -56,7 +48,7 @@ I2C_Result I2C_Write(
 	I2C_Result result = I2C_SendAddress(i2c, address, I2C_WRITE);
 	
 	for(uint32_t i=0; i<len; i++) {
-		if(SUCCESS == result) {
+		if(I2C_RESULT_SUCCESS == result) {
 			// Transmit the next data byte
 			i2c->D = data[i];
 			
@@ -67,14 +59,14 @@ I2C_Result I2C_Write(
 			// Check lost of arbitration
 			if(i2c->S & I2C_S_ARBL_MASK) {
 				i2c->S |= I2C_S_ARBL_MASK; // Clear ARBL flag
-				result = ARB_LOST;
+				result = I2C_RESULT_ARB_LOST;
 			}
 		}
 		
-		if(SUCCESS == result) {
+		if(I2C_RESULT_SUCCESS == result) {
 			// Check ack bit from slave
 			if(i2c->S & I2C_S_RXAK_MASK)
-				result = NACK;
+				result = I2C_RESULT_NACK;
 		}
 	}
 		
@@ -95,7 +87,7 @@ I2C_Result I2C_Read(I2C_Type *i2c,
 	
 	I2C_Result result = I2C_SendAddress(i2c, address, I2C_READ);
 
-	if(SUCCESS == result) {
+	if(I2C_RESULT_SUCCESS == result) {
 		
 		// Set I2C master on receiver mode
 		i2c->C1 &= ~I2C_C1_TX_MASK;
@@ -133,16 +125,16 @@ I2C_Result I2C_ReadBurst(
 	uint8_t dummy[1];
 	I2C_Result result;
 			
-	if(len == 0) return SUCCESS; // No data to read, don't even start I2C communication
+	if(len == 0) return I2C_RESULT_SUCCESS; // No data to read, don't even start I2C communication
 			
 	dummy[0] = control; // Using array to comply with I2C_Write interface
 	result = I2C_Write(i2c, address, dummy, 1, 1); 
 			
-	if(SUCCESS == result) {
+	if(I2C_RESULT_SUCCESS == result) {
 		result = I2C_SendAddress(i2c, address, I2C_READ);
 	}
 			
-	if(SUCCESS == result) {
+	if(I2C_RESULT_SUCCESS == result) {
 		// Set I2C master on receiver mode
 		i2c->C1 &= ~I2C_C1_TX_MASK;
 		
@@ -190,17 +182,17 @@ static I2C_Result I2C_SendAddress(
 		uint8_t address,
 		uint8_t mode) {
 	
-	I2C_Result result = SUCCESS;
+	I2C_Result result = I2C_RESULT_SUCCESS;
 	uint8_t isMaster;
 	
 	mode = (uint8_t)(mode & 0x1); // Ensure that only the LSB is considered		
 	isMaster = I2C_C1_MST_MASK & i2c->C1;
 	
 	if( (!isMaster) && (i2c->S & I2C_S_BUSY_MASK) ) {
-		result = BUSY;
+		result = I2C_RESULT_BUSY;
 	}
 	
-	if(SUCCESS == result) {
+	if(I2C_RESULT_SUCCESS == result) {
 		// Master mode, transmit
 		i2c->C1 |= I2C_C1_MST(1) | I2C_C1_TX(1);
 		
@@ -214,14 +206,14 @@ static I2C_Result I2C_SendAddress(
 		// Check lost of arbitration
 		if(i2c->S & I2C_S_ARBL_MASK) {
 			i2c->S |= I2C_S_ARBL_MASK; // Clear ARBL flag
-			result = ARB_LOST;
+			result = I2C_RESULT_ARB_LOST;
 		}
 	}
 	
-	if(SUCCESS == result) {
+	if(I2C_RESULT_SUCCESS == result) {
 		// Check ack bit from slave (RXAK = 1 means NACK)
 		if(i2c->S & I2C_S_RXAK_MASK) {
-			result = NACK;
+			result = I2C_RESULT_NACK;
 		}
 	}
 	
