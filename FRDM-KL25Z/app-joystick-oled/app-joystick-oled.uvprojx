@@ -313,7 +313,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>2</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -387,6 +387,16 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>hw_init.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\hw_init.h</FilePath>
+            </File>
+            <File>
+              <FileName>hw_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\hw_init.c</FilePath>
             </File>
           </Files>
         </Group>
