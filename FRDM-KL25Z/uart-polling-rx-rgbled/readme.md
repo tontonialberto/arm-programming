@@ -7,6 +7,7 @@
 * Connect the FRDM board to PC and open a serial terminal (eg. PuTTY) to communicate with the board
 
 * Send a digit from 0 to 7 to change the RGB color accordingly:
+
 | Command | Color  |
 | :-----: | :----: |
 |    0    | White  |
