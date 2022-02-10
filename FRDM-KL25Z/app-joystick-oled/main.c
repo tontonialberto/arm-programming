@@ -3,6 +3,7 @@
 #include "I2C_Master.h"
 #include "delay.h"
 #include "hw_init.h"
+#include "util.h"
 
 void ADC0_IRQHandler(void);
 
@@ -53,18 +54,19 @@ int main() {
 		SSD1306_Clear(&oledData);
 		
 		if(analogY > 0) {
-			SSD1306_WriteDigit(&oledData, 1, 0, 0);
+			SSD1306_WriteUnsignedInt(&oledData, (uint32_t)analogY, 20, 0);
 		}
 		else {
-			SSD1306_WriteDigit(&oledData, 0, 0, 0);
+			// Write the minus sign before the number.
+			SSD1306_WriteLineHoriz(&oledData, 0, 2, 3);
+			SSD1306_WriteUnsignedInt(&oledData, (uint32_t)-analogY, 20, 0);
 		}
+		
 		SSD1306_Update(&oledData);
 	}
 }
 
 void ADC0_IRQHandler(void) {
-	//static uint16_t adcVal = 0;
-	
 	uint16_t adcVal = (uint16_t)ADC0->R[0];
 	
 	// Convert to value in interval [-0.5, +0.5]

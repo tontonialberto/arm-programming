@@ -1,0 +1,18 @@
+#include "util.h"
+
+void SSD1306_WriteUnsignedInt(
+		SSD1306_Data *data, 
+		uint32_t value, 
+		uint8_t x, 
+		uint8_t y) {
+	
+	if(value == 0) {
+			SSD1306_WriteDigit(data, 0, x, y);
+	}
+	else {
+		if((value / 10) > 0) {
+			SSD1306_WriteUnsignedInt(data, value / 10, x - 4, y);
+		}
+		SSD1306_WriteDigit(data, value % 10, x, y);
+	}
+}
