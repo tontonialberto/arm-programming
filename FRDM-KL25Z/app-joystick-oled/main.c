@@ -12,6 +12,8 @@ I2C_Result I2C_Write_Adapter(
 	uint8_t *data, 
 	uint32_t len, 
 	bool restart);
+	
+int32_t lowPassFilter(int32_t prevFiltered, int32_t currMeasurement, double alpha);
 
 const static uint8_t ADC_CHANNEL_JOY_Y = 13;
 
@@ -54,12 +56,12 @@ int main() {
 		SSD1306_Clear(&oledData);
 		
 		if(analogY > 0) {
-			SSD1306_WriteUnsignedInt(&oledData, (uint32_t)analogY, 20, 0);
+			SSD1306_WriteUnsignedInt(&oledData, analogY, 20, 0);
 		}
 		else {
 			// Write the minus sign before the number.
 			SSD1306_WriteLineHoriz(&oledData, 0, 2, 3);
-			SSD1306_WriteUnsignedInt(&oledData, (uint32_t)-analogY, 20, 0);
+			SSD1306_WriteUnsignedInt(&oledData, -analogY, 20, 0);
 		}
 		
 		SSD1306_Update(&oledData);
@@ -68,12 +70,21 @@ int main() {
 
 void ADC0_IRQHandler(void) {
 	uint16_t adcVal = (uint16_t)ADC0->R[0];
+	int32_t currAnalogY = 0;
 	
 	// Convert to value in interval [-0.5, +0.5]
 	tmp = (((double)adcVal) / 65536.0) - 0.525;
 	
 	// Convert to value in interval [-100, +100]
-	analogY = (int32_t)(2 * 100 * tmp);
+	currAnalogY = (int32_t)(2 * 100 * tmp);
+	
+	analogY = lowPassFilter(analogY, currAnalogY, 0.9);
+	
+	// Input check: put the value back to its bounds
+	if(analogY < -100)
+		analogY = -100;
+	else if(analogY > 100)
+		analogY = 100;
 	
 	ADC0->SC1[0] |= ADC_SC1_ADCH(ADC_CHANNEL_JOY_Y);
 }
@@ -85,4 +96,8 @@ I2C_Result I2C_Write_Adapter(
 		bool restart) {
 	
 	return I2C_Write(I2C0, address, data, len, restart);
+}
+
+int32_t lowPassFilter(int32_t prevFiltered, int32_t currMeasurement, double alpha) {
+	return currMeasurement + (int32_t)(alpha * (prevFiltered - currMeasurement));
 }

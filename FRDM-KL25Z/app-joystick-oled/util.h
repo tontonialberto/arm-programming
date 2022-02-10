@@ -10,7 +10,7 @@
 /// \param [in] y Upper Y coordinate of the number bitmap.
 void SSD1306_WriteUnsignedInt(
 	SSD1306_Data *data, 
-	uint32_t value, 
+	int32_t value, 
 	uint8_t x, 
 	uint8_t y);
 
