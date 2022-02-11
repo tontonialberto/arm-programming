@@ -11,8 +11,8 @@ Diagnostic firmware for I2C slave testing.
 
 * You can send the following commands, please note that the terminator char is **'.'** (ie. the dot):
 	* **discover.** sends an I2C address write request to the I2C bus. Returns all the addresses that answered with an acknowledge
-	* **slave <hex address>.** tests if the slave is connected
-	* **write <hex byte 0> [<hex byte 1> ... <hex byte n>].** performs a burst write. **Warning:** you have to set the slave address before using this command (see **slave** command)
+	* **slave \<hex address\>.** tests if the slave is connected
+	* **write \<hex byte 0\> [\<hex byte 1\> ... \<hex byte n\>].** performs a burst write. **Warning:** you have to set the slave address before using this command (see **slave** command)
 
 ## Requirements
 * Freescale FRDM-KL25Z development board with CMSIS-DAP debug/programming app
