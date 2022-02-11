@@ -1,3 +1,6 @@
+## Demo
+![Demo GIF](./assets/tpm-timer-interrupt.gif)
+
 ## Description
 This program blinks the built-in red and blue LEDs at different frequencies using TPM0 and TPM1 in timer mode, making use of interrupts.
 

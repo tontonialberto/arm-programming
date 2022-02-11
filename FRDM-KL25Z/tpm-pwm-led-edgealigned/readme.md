@@ -1,3 +1,6 @@
+## Demo
+![Demo image](./assets/tpm-pwm-led-edgealigned.jpg)
+
 ## Description
 * This project shows basic usage of the PWM module on TPM2, Channel 1.
 
