@@ -15,6 +15,7 @@ typedef void (* RenderFn)(GameObject *);
 
 struct GameContext {
 	int16_t playerHorizontalStep;
+	int16_t playerBulletVerticalStep;
 	int16_t gameAreaMinX;
 	int16_t gameAreaMaxX;
 };
