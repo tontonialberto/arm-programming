@@ -50,19 +50,28 @@ int main() {
 	oledInit = SSD1306_Init(&oledData);
 	
 	GameContext ctx;
-	ctx.playerHorizontalStep = -2;
+	ctx.playerHorizontalStep = +2;
+	ctx.gameAreaMinX = 0;
+	ctx.gameAreaMaxX = 127;
 	GameObject player;
 	player.x = 50;
 	player.y = 20;
 	player.width = 6;
 	player.height = 6;
 	player.ctx = &ctx;
+	
 	delayMs(100);
 	
 	while(1) {
 		delayMs(100);
 		SSD1306_Clear(&oledData);
 		player.x += ctx.playerHorizontalStep;
+		if(player.x < ctx.gameAreaMinX) {
+			player.x = ctx.gameAreaMinX;
+		}
+		else if(player.x + player.width > ctx.gameAreaMaxX) {
+			player.x = ctx.gameAreaMaxX - (int16_t)player.width - (int16_t)1;
+		}
 		SSD1306_WriteRectangle(&oledData, player.x, player.y, player.width, player.height);
 		SSD1306_Update(&oledData);
 	}
