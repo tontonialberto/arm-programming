@@ -46,7 +46,7 @@ bool SSD1306_Init(SSD1306_Data *data) {
     privateBuffer[4] = (uint8_t)0xa8U;
     i2c_res = i2c_write(slaveAddr, privateBuffer, 5, false);
 
-    delayUs(2);
+    delayUs(20);
 
     if(I2C_RESULT_SUCCESS == i2c_res) {
         privateBuffer[0] = (uint8_t)0x0U;
@@ -54,7 +54,7 @@ bool SSD1306_Init(SSD1306_Data *data) {
         i2c_res = i2c_write(slaveAddr, privateBuffer, 2, false);
     }
 
-    delayUs(2);
+    delayUs(20);
 
     if(I2C_RESULT_SUCCESS == i2c_res) {
         privateBuffer[0] = (uint8_t)0x0U;
@@ -63,7 +63,7 @@ bool SSD1306_Init(SSD1306_Data *data) {
         i2c_res = i2c_write(slaveAddr, privateBuffer, 3, false);
     }
 
-    delayUs(2);
+    delayUs(20);
 
     if(I2C_RESULT_SUCCESS == i2c_res) {
         privateBuffer[0] = (uint8_t)0x0U;
@@ -71,7 +71,7 @@ bool SSD1306_Init(SSD1306_Data *data) {
         i2c_res = i2c_write(slaveAddr, privateBuffer, 2, false);
     }
 
-    delayUs(2);
+    delayUs(20);
 
     if(I2C_RESULT_SUCCESS == i2c_res) {
         privateBuffer[0] = (uint8_t)0x0U;
@@ -79,7 +79,7 @@ bool SSD1306_Init(SSD1306_Data *data) {
         i2c_res = i2c_write(slaveAddr, privateBuffer, 2, false);
     }
 
-    delayUs(2);
+    delayUs(20);
 
     if(I2C_RESULT_SUCCESS == i2c_res) {
         privateBuffer[0] = (uint8_t)0x0U;
@@ -87,7 +87,7 @@ bool SSD1306_Init(SSD1306_Data *data) {
         i2c_res = i2c_write(slaveAddr, privateBuffer, 2, false);
     }
 
-    delayUs(2);
+    delayUs(20);
 
     if(I2C_RESULT_SUCCESS == i2c_res) {
         privateBuffer[0] = (uint8_t)0x0U;
@@ -98,7 +98,7 @@ bool SSD1306_Init(SSD1306_Data *data) {
         i2c_res = i2c_write(slaveAddr, privateBuffer, 5, false);
     }
 
-    delayUs(2);
+    delayUs(20);
 
     if(I2C_RESULT_SUCCESS == i2c_res) {
         privateBuffer[0] = (uint8_t)0x0U;
@@ -106,7 +106,7 @@ bool SSD1306_Init(SSD1306_Data *data) {
         i2c_res = i2c_write(slaveAddr, privateBuffer, 2, false);
     }
 
-    delayUs(2);
+    delayUs(20);
 
     if(I2C_RESULT_SUCCESS == i2c_res) {
         privateBuffer[0] = (uint8_t)0x0U;
@@ -114,7 +114,7 @@ bool SSD1306_Init(SSD1306_Data *data) {
         i2c_res = i2c_write(slaveAddr, privateBuffer, 2, false);
     }
 
-    delayUs(2);
+    delayUs(20);
 
     if(I2C_RESULT_SUCCESS == i2c_res) {
         privateBuffer[0] = (uint8_t)0x0U;
@@ -122,7 +122,7 @@ bool SSD1306_Init(SSD1306_Data *data) {
         i2c_res = i2c_write(slaveAddr, privateBuffer, 2, false);
     }
 
-    delayUs(2);
+    delayUs(20);
 
     if(I2C_RESULT_SUCCESS == i2c_res) {
         privateBuffer[0] = (uint8_t)0x0U;
@@ -130,7 +130,7 @@ bool SSD1306_Init(SSD1306_Data *data) {
         i2c_res = i2c_write(slaveAddr, privateBuffer, 2, false);
     }
 
-    delayUs(2);
+    delayUs(20);
 
     if(I2C_RESULT_SUCCESS == i2c_res) {
         privateBuffer[0] = (uint8_t)0x0U;
@@ -138,7 +138,7 @@ bool SSD1306_Init(SSD1306_Data *data) {
         i2c_res = i2c_write(slaveAddr, privateBuffer, 2, false);
     }
 
-    delayUs(2);
+    delayUs(20);
 
     if(I2C_RESULT_SUCCESS == i2c_res) {
         privateBuffer[0] = (uint8_t)0x0U;
@@ -146,7 +146,7 @@ bool SSD1306_Init(SSD1306_Data *data) {
         i2c_res = i2c_write(slaveAddr, privateBuffer, 2, false);
     }
 
-    delayUs(2);
+    delayUs(20);
 
     if(I2C_RESULT_SUCCESS == i2c_res) {
         privateBuffer[0] = (uint8_t)0x0U;
