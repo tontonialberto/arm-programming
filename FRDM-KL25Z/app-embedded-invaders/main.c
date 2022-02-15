@@ -4,6 +4,7 @@
 #include "delay.h"
 #include "hw_init.h"
 #include "util.h"
+#include "GameObject.h"
 
 void ADC0_IRQHandler(void);
 
@@ -33,7 +34,6 @@ int main() {
 	oledData.I2C_Write = I2C_Write_Adapter;
 	oledData.DelayUs = delayUs;
 	
-	
 	__disable_irq();
 
 	SIM->SCGC6 |= SIM_SCGC6_ADC0_MASK;
@@ -49,21 +49,21 @@ int main() {
 	
 	oledInit = SSD1306_Init(&oledData);
 	
+	GameContext ctx;
+	ctx.playerHorizontalStep = -2;
+	GameObject player;
+	player.x = 50;
+	player.y = 20;
+	player.width = 6;
+	player.height = 6;
+	player.ctx = &ctx;
 	delayMs(100);
 	
 	while(1) {
 		delayMs(100);
 		SSD1306_Clear(&oledData);
-		
-		if(analogY > 0) {
-			SSD1306_WriteUnsignedInt(&oledData, analogY, 20, 0);
-		}
-		else {
-			// Write the minus sign before the number.
-			SSD1306_WriteLineHoriz(&oledData, 0, 2, 3);
-			SSD1306_WriteUnsignedInt(&oledData, -analogY, 20, 0);
-		}
-		
+		player.x += ctx.playerHorizontalStep;
+		SSD1306_WriteRectangle(&oledData, player.x, player.y, player.width, player.height);
 		SSD1306_Update(&oledData);
 	}
 }

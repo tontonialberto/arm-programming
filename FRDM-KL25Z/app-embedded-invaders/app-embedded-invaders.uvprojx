@@ -10,6 +10,7 @@
       <TargetName>Target 1</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>6160000::V6.16::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -312,7 +313,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>2</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -338,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\libs</IncludePath>
+              <IncludePath>.\libs;.\game</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -446,6 +447,16 @@
               <FileName>I2C_Master.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\libs\I2C_Master.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Game</GroupName>
+          <Files>
+            <File>
+              <FileName>GameObject.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\game\GameObject.h</FilePath>
             </File>
           </Files>
         </Group>
