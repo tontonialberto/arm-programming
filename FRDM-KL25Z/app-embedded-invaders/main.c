@@ -9,6 +9,8 @@
 
 void ADC0_IRQHandler(void);
 
+void PORTD_IRQHandler(void);
+
 I2C_Result I2C_Write_Adapter(
 	uint8_t address, 
 	uint8_t *data, 
@@ -18,10 +20,13 @@ I2C_Result I2C_Write_Adapter(
 int32_t lowPassFilter(int32_t prevFiltered, int32_t currMeasurement, double alpha);
 
 const static uint8_t ADC_CHANNEL_JOY_Y = 13;
+const static uint32_t PIN_JOY_SW = 7;
 
 static volatile int analogY = 0;
 static volatile double tmp = 0;
 static volatile bool oledInit = false;
+static volatile bool spawnPlayerBullet = false;
+
 static uint8_t oledBuffer[SSD1306_BUFFER_SIZE];
 
 int main() {
@@ -61,6 +66,11 @@ int main() {
 	while(1) {
 		delayMs(20);
 		SSD1306_Clear(&oledData);
+		
+		if(spawnPlayerBullet) {
+			spawnPlayerBullet = false;
+			ctx.spawnPlayerBullet = true;
+		}
 		
 		// Spawn bullet if needed
 		if(ctx.spawnPlayerBullet) {
@@ -116,6 +126,13 @@ void ADC0_IRQHandler(void) {
 		analogY = 100;
 	
 	ADC0->SC1[0] |= ADC_SC1_ADCH(ADC_CHANNEL_JOY_Y);
+}
+
+void PORTD_IRQHandler(void) {
+	if(PORTD->ISFR & (1 << PIN_JOY_SW)) { 
+		spawnPlayerBullet = true;
+		PORTD->ISFR |= (1 << PIN_JOY_SW);
+	}
 }
 
 I2C_Result I2C_Write_Adapter(

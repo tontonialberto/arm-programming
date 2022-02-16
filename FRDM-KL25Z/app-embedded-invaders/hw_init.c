@@ -11,17 +11,27 @@ static void I2C_Init(
 
 void HardwareInit() {
 	const uint32_t PIN_JOY_Y = 3;
+	const uint32_t PIN_JOY_SW = 7;
 	const uint32_t PIN_OLED_SDA = 1;
 	const uint32_t PIN_OLED_SCL = 0;
 	const uint8_t ADC_CHANNEL_JOY_Y = 13;
 	
 	__disable_irq();
 	SIM->SCGC6 |= SIM_SCGC6_ADC0_MASK;
-	SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK;
+	SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTD_MASK;
 	SIM->SCGC4 |= SIM_SCGC4_I2C0_MASK;
 	
 	ADC_Init(ADC0, ADC_CHANNEL_JOY_Y, PORTB, PIN_JOY_Y);
 	I2C_Init(I2C0, PORTB, PIN_OLED_SDA, PIN_OLED_SCL, 2);
+	
+	// GPIO Init
+	PORTD->PCR[PIN_JOY_SW] = 
+		PORT_PCR_MUX(1) | // Mode = GPIO
+		PORT_PCR_PE(1) | // Pull resistor enabled
+		PORT_PCR_PS(1) | // Choose pullup resistor
+		PORT_PCR_IRQC(0xA); // Interrupt on falling edge
+	NVIC_EnableIRQ(PORTD_IRQn);
+	
 	__enable_irq();
 }
 
