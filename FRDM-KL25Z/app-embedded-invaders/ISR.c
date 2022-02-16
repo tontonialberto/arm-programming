@@ -3,13 +3,11 @@
 #include <stdbool.h>
 #include "ISR.h"
 #include "util.h"
+#include "PinConfig.h"
 
 volatile int32_t analogY = 0;
-volatile double tmp = 0;
+static volatile double tmp = 0;
 volatile bool spawnPlayerBullet = false;
-
-const static uint8_t ADC_CHANNEL_JOY_Y = 13;
-const static uint32_t PIN_JOY_SW = 7;
 
 void ADC0_IRQHandler(void) {
 	uint16_t adcVal = (uint16_t)ADC0->R[0];

@@ -423,6 +423,11 @@
               <FileType>1</FileType>
               <FilePath>.\ISR.c</FilePath>
             </File>
+            <File>
+              <FileName>PinConfig.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\PinConfig.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

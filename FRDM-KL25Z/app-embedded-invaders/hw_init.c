@@ -1,4 +1,5 @@
 #include "hw_init.h"
+#include "PinConfig.h"
 
 static void ADC_Init(ADC_Type *adc, uint8_t channel, PORT_Type *port, uint32_t pin);
 
@@ -10,12 +11,6 @@ static void I2C_Init(
 	uint32_t alt);
 
 void HardwareInit() {
-	const uint32_t PIN_JOY_Y = 3;
-	const uint32_t PIN_JOY_SW = 7;
-	const uint32_t PIN_OLED_SDA = 1;
-	const uint32_t PIN_OLED_SCL = 0;
-	const uint8_t ADC_CHANNEL_JOY_Y = 13;
-	
 	__disable_irq();
 	SIM->SCGC6 |= SIM_SCGC6_ADC0_MASK;
 	SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTD_MASK;

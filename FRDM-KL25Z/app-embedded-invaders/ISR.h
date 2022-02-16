@@ -5,7 +5,6 @@
 #include <stdbool.h>
 
 extern volatile int32_t analogY;
-extern volatile double tmp;
 extern volatile bool spawnPlayerBullet;
 
 void ADC0_IRQHandler(void);
