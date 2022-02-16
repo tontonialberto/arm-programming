@@ -42,15 +42,14 @@ int main() {
 	oledInit = SSD1306_Init(&oledData);
 	
 	GameContext ctx;
-	ctx.playerHorizontalStep = +2;
 	ctx.playerBulletVerticalStep = -3;
 	ctx.gameAreaMinX = 0;
 	ctx.gameAreaMaxX = 127;
 	ctx.spawnPlayerBullet = true;
 	
 	GameObject player;
-	player.x = 50;
-	player.y = 20;
+	player.x = 56;
+	player.y = 24;
 	player.width = 6;
 	player.height = 6;
 	player.ctx = &ctx;
@@ -67,9 +66,20 @@ int main() {
 		delayMs(20);
 		SSD1306_Clear(&oledData);
 		
+		// Handle user input
 		if(spawnPlayerBullet) {
 			spawnPlayerBullet = false;
 			ctx.spawnPlayerBullet = true;
+		}
+		
+		if(analogY > 50) {
+			ctx.playerHorizontalStep = +3;
+		}
+		else if(analogY < -50) {
+			ctx.playerHorizontalStep = -3;
+		}
+		else {
+			ctx.playerHorizontalStep = 0;
 		}
 		
 		// Spawn bullet if needed
