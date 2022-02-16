@@ -428,6 +428,16 @@
               <FileType>5</FileType>
               <FilePath>.\PinConfig.h</FilePath>
             </File>
+            <File>
+              <FileName>AppConfig.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\AppConfig.h</FilePath>
+            </File>
+            <File>
+              <FileName>AppConfig.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\AppConfig.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

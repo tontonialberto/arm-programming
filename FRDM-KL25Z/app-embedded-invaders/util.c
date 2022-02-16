@@ -13,7 +13,7 @@ void SSD1306_WriteUnsignedInt(
 		if((value / 10) > 0) {
 			SSD1306_WriteUnsignedInt(data, value / 10, x - 4, y);
 		}
-		SSD1306_WriteDigit(data, value % 10, x, y);
+		SSD1306_WriteDigit(data, (uint8_t)(value % 10), x, y);
 	}
 }
 		

@@ -226,15 +226,15 @@ void SSD1306_WriteLineVert(SSD1306_Data *data, uint8_t x, uint8_t y, uint8_t len
 }
 
 void SSD1306_WriteRectangle(SSD1306_Data *data, uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
-    if((w == 0) || (h == 0)) return;
+    if((w == 0) || (h == 0)) return; 
 
     for(uint16_t i=x; i<x+w; i++) {
-        SSD1306_WritePixel(data, i, y, true);
-        SSD1306_WritePixel(data, i, y + h - 1, true);
+        SSD1306_WritePixel(data, (uint8_t)i, y, true);
+        SSD1306_WritePixel(data, (uint8_t)i, y + h - 1, true);
     }
     for(uint16_t j=y+1; j<y+h-1; j++) {
-        SSD1306_WritePixel(data, x, j, true);
-        SSD1306_WritePixel(data, x + w - 1, j, true);
+        SSD1306_WritePixel(data, x, (uint8_t)j, true);
+        SSD1306_WritePixel(data, x + w - 1, (uint8_t)j, true);
     }
 }
 

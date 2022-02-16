@@ -98,11 +98,22 @@ int main() {
 		
 		// Player bullet render
 		if(bullet.active) {
-			SSD1306_WriteRectangle(&oledData, bullet.x, bullet.y, bullet.width, bullet.height);
+			SSD1306_WriteRectangle(
+				&oledData, 
+				(uint8_t)bullet.x, 
+				(uint8_t)bullet.y, 
+				(uint8_t)bullet.width, 
+				(uint8_t)bullet.height);
 		}
 		
 		// Player render
-		SSD1306_WriteRectangle(&oledData, player.x, player.y, player.width, player.height);
+		SSD1306_WriteRectangle(
+			&oledData, 
+			(uint8_t)player.x, 
+			(uint8_t)player.y, 
+			(uint8_t)player.width, 
+			(uint8_t)player.height);
+		
 		SSD1306_Update(&oledData);
 	}
 }
