@@ -1,5 +1,30 @@
 #include "hw_init.h"
 
+static void ADC_Init(ADC_Type *adc, uint8_t channel, PORT_Type *port, uint32_t pin);
+
+static void I2C_Init(
+	I2C_Type *i2c, 
+	PORT_Type *port, 
+	uint32_t pinSDA, 
+	uint32_t pinSCL, 
+	uint32_t alt);
+
+void HardwareInit() {
+	const uint32_t PIN_JOY_Y = 3;
+	const uint32_t PIN_OLED_SDA = 1;
+	const uint32_t PIN_OLED_SCL = 0;
+	const uint8_t ADC_CHANNEL_JOY_Y = 13;
+	
+	__disable_irq();
+	SIM->SCGC6 |= SIM_SCGC6_ADC0_MASK;
+	SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK;
+	SIM->SCGC4 |= SIM_SCGC4_I2C0_MASK;
+	
+	ADC_Init(ADC0, ADC_CHANNEL_JOY_Y, PORTB, PIN_JOY_Y);
+	I2C_Init(I2C0, PORTB, PIN_OLED_SDA, PIN_OLED_SCL, 2);
+	__enable_irq();
+}
+
 void ADC_Init(ADC_Type *adc, uint8_t channel, PORT_Type *port, uint32_t pin) {
 	
 	// Software trigger mode.
