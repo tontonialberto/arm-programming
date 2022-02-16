@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include "GameUtils.h"
 #include "ISR.h"
+#include "AppConfig.h"
 
 I2C_Result I2C_Write_Adapter(
 	uint8_t address, 
@@ -16,21 +17,6 @@ I2C_Result I2C_Write_Adapter(
 
 static bool oledInit = false;
 static uint8_t oledBuffer[SSD1306_BUFFER_SIZE];
-
-const static int16_t PLAYER_RIGHT_STEP = 3;
-const static int16_t PLAYER_BULLET_UP_STEP = -3;
-
-const static int32_t THRESHOLD_JOYSTICK = 50;
-
-const static uint16_t PLAYER_WIDTH = 6;
-const static uint16_t PLAYER_HEIGHT = 6;
-
-const static uint16_t PLAYER_BULLET_WIDTH = 2;
-const static uint16_t PLAYER_BULLET_HEIGHT = 3;
-
-const static int16_t SCREEN_MIN_X = 0;
-const static int16_t SCREEN_MAX_X = 127;
-const static int16_t SCREEN_MIN_Y = 0;
 
 int main() {
 	SSD1306_Data oledData;
