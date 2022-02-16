@@ -54,6 +54,7 @@ int main() {
 	ctx.playerBulletVerticalStep = -3;
 	ctx.gameAreaMinX = 0;
 	ctx.gameAreaMaxX = 127;
+	ctx.spawnPlayerBullet = false;
 	
 	GameObject player;
 	player.x = 50;
@@ -67,6 +68,7 @@ int main() {
 	bullet.height = 3;
 	bullet.x = player.x + (bullet.width / 2);
 	bullet.y = player.y - (int16_t)bullet.height;
+	bullet.active = false;
 	bullet.ctx = &ctx;
 	
 	delayMs(100);
@@ -74,6 +76,13 @@ int main() {
 	while(1) {
 		delayMs(20);
 		SSD1306_Clear(&oledData);
+		
+		if(ctx.spawnPlayerBullet) {
+			ctx.spawnPlayerBullet = false;
+			bullet.active = true;
+			bullet.x = player.x + (bullet.width / 2);
+			bullet.y = player.y - (int16_t)bullet.height;
+		}
 		
 		player.x += ctx.playerHorizontalStep;
 		if(player.x < ctx.gameAreaMinX) {
@@ -83,9 +92,11 @@ int main() {
 			player.x = ctx.gameAreaMaxX - (int16_t)player.width - (int16_t)1;
 		}
 		
-		bullet.y += ctx.playerBulletVerticalStep;
+		if(bullet.active) {
+			bullet.y += ctx.playerBulletVerticalStep;
+			SSD1306_WriteRectangle(&oledData, bullet.x, bullet.y, bullet.width, bullet.height);
+		}
 		
-		SSD1306_WriteRectangle(&oledData, bullet.x, bullet.y, bullet.width, bullet.height);
 		SSD1306_WriteRectangle(&oledData, player.x, player.y, player.width, player.height);
 		SSD1306_Update(&oledData);
 	}
