@@ -5,6 +5,7 @@
 #include "hw_init.h"
 #include "util.h"
 #include "GameObject.h"
+#include "GameUtils.h"
 
 void ADC0_IRQHandler(void);
 
@@ -54,7 +55,7 @@ int main() {
 	ctx.playerBulletVerticalStep = -3;
 	ctx.gameAreaMinX = 0;
 	ctx.gameAreaMaxX = 127;
-	ctx.spawnPlayerBullet = false;
+	ctx.spawnPlayerBullet = true;
 	
 	GameObject player;
 	player.x = 50;
@@ -66,8 +67,6 @@ int main() {
 	GameObject bullet;
 	bullet.width = 2;
 	bullet.height = 3;
-	bullet.x = player.x + (bullet.width / 2);
-	bullet.y = player.y - (int16_t)bullet.height;
 	bullet.active = false;
 	bullet.ctx = &ctx;
 	
@@ -77,13 +76,14 @@ int main() {
 		delayMs(20);
 		SSD1306_Clear(&oledData);
 		
+		// Spawn bullet if needed
 		if(ctx.spawnPlayerBullet) {
 			ctx.spawnPlayerBullet = false;
 			bullet.active = true;
-			bullet.x = player.x + (bullet.width / 2);
-			bullet.y = player.y - (int16_t)bullet.height;
+			SetSpawnPosition_PlayerBullet(&bullet, &player);
 		}
 		
+		// Player move
 		player.x += ctx.playerHorizontalStep;
 		if(player.x < ctx.gameAreaMinX) {
 			player.x = ctx.gameAreaMinX;
@@ -92,11 +92,20 @@ int main() {
 			player.x = ctx.gameAreaMaxX - (int16_t)player.width - (int16_t)1;
 		}
 		
+		// Player bullet move
 		if(bullet.active) {
 			bullet.y += ctx.playerBulletVerticalStep;
+		}
+		if(bullet.y < 0) {
+			bullet.active = false;
+		}
+		
+		// Player bullet render
+		if(bullet.active) {
 			SSD1306_WriteRectangle(&oledData, bullet.x, bullet.y, bullet.width, bullet.height);
 		}
 		
+		// Player render
 		SSD1306_WriteRectangle(&oledData, player.x, player.y, player.width, player.height);
 		SSD1306_Update(&oledData);
 	}

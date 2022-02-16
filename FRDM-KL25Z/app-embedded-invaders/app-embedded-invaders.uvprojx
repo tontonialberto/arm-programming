@@ -458,6 +458,11 @@
               <FileType>5</FileType>
               <FilePath>.\game\GameObject.h</FilePath>
             </File>
+            <File>
+              <FileName>GameUtils.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\game\GameUtils.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
