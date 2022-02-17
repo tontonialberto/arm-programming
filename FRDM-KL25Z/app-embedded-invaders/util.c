@@ -16,8 +16,3 @@ void SSD1306_WriteUnsignedInt(
 		SSD1306_WriteDigit(data, (uint8_t)(value % 10), x, y);
 	}
 }
-		
-int32_t lowPassFilter(int32_t prevFiltered, int32_t currMeasurement, double alpha) {
-	return currMeasurement + (int32_t)(alpha * (prevFiltered - currMeasurement));
-}
-

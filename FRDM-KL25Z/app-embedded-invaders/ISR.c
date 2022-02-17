@@ -2,7 +2,6 @@
 #include <MKL25Z4.h>
 #include <stdbool.h>
 #include "ISR.h"
-#include "util.h"
 #include "PinConfig.h"
 
 volatile int32_t analogY = 0;
@@ -19,7 +18,7 @@ void ADC0_IRQHandler(void) {
 	// Convert to value in interval [-100, +100]
 	currAnalogY = (int32_t)(2 * 100 * tmp);
 	
-	analogY = lowPassFilter(analogY, currAnalogY, 0.9);
+	analogY = currAnalogY;
 	
 	// Input check: put the value back to its bounds
 	if(analogY < -100)

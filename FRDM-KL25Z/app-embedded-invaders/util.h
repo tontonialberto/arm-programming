@@ -14,6 +14,4 @@ void SSD1306_WriteUnsignedInt(
 	uint8_t x, 
 	uint8_t y);
 
-int32_t lowPassFilter(int32_t prevFiltered, int32_t currMeasurement, double alpha);
-
 #endif
