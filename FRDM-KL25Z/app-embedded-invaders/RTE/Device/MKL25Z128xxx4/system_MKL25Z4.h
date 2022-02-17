@@ -151,6 +151,8 @@ extern "C" {
          Core clock = 48MHz
          Bus clock  = 24MHz
  */
+ 
+#define CLOCK_SETUP 1
 
 /* Define clock source values */
 
