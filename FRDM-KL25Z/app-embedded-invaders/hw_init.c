@@ -12,7 +12,7 @@ static void I2C_Init(
 
 void HardwareInit() {
 	__disable_irq();
-	SIM->SCGC6 |= SIM_SCGC6_ADC0_MASK;
+	SIM->SCGC6 |= SIM_SCGC6_ADC0_MASK | SIM_SCGC6_TPM0_MASK;
 	SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTD_MASK;
 	SIM->SCGC4 |= SIM_SCGC4_I2C0_MASK;
 	
@@ -26,6 +26,21 @@ void HardwareInit() {
 		PORT_PCR_PS(1) | // Choose pullup resistor
 		PORT_PCR_IRQC(0xA); // Interrupt on falling edge
 	NVIC_EnableIRQ(PORTD_IRQn);
+	
+	// TPM Init
+	// Set PLL/2 as TPM0 clock source
+	SIM->SOPT2 &= ~SIM_SOPT2_TPMSRC_MASK & ~SIM_SOPT2_PLLFLLSEL_MASK;
+	SIM->SOPT2 |= SIM_SOPT2_TPMSRC(1) | SIM_SOPT2_PLLFLLSEL(1);
+	
+	TPM0->SC &= ~TPM_SC_CMOD_MASK;
+	TPM0->SC |= TPM_SC_TOF_MASK;
+	TPM0->SC |= TPM_SC_PS(0); // Set clock divider to 1
+	TPM0->SC |= TPM_SC_TOIE_MASK;
+	
+	// Timer resolution is 1ms
+	TPM0->MOD = (SystemCoreClock / 1000) - 1;
+	TPM0->SC |= TPM_SC_CMOD(1);
+	NVIC_EnableIRQ(TPM0_IRQn);
 	
 	__enable_irq();
 }

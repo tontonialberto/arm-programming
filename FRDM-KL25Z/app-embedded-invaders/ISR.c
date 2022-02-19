@@ -6,7 +6,6 @@
 
 volatile int32_t analogY = 0;
 static volatile double tmp = 0;
-volatile bool spawnPlayerBullet = false;
 
 void ADC0_IRQHandler(void) {
 	uint16_t adcVal = (uint16_t)ADC0->R[0];
@@ -29,9 +28,19 @@ void ADC0_IRQHandler(void) {
 	ADC0->SC1[0] |= ADC_SC1_ADCH(ADC_CHANNEL_JOY_Y);
 }
 
+volatile bool spawnPlayerBullet = false;
+
 void PORTD_IRQHandler(void) {
 	if(PORTD->ISFR & (1 << PIN_JOY_SW)) { 
 		spawnPlayerBullet = true;
 		PORTD->ISFR |= (1 << PIN_JOY_SW);
 	}
 }
+
+volatile uint32_t elapsedMs = 0;
+
+void TPM0_IRQHandler(void) {
+	elapsedMs ++;
+	TPM0->SC |= TPM_SC_TOF_MASK;
+}
+
