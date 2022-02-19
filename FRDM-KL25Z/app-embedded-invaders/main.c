@@ -93,7 +93,7 @@ int main() {
 		// Periodic event processing
 		if(evtEnemyMove.timeoutMs <= Timer_GetElapsedMsSince(evtEnemyMove.lastTimeoutMs)) {
 			// Execute the event: update enemy horiz step
-			ctx.enemyHorizontalStep = -10;
+			ctx.enemyHorizontalStep = 10;
 			evtEnemyMove.lastTimeoutMs = Timer_GetElapsedMs();
 		}
 		else {
@@ -111,12 +111,7 @@ int main() {
 		
 		// Player move
 		player.x += ctx.playerHorizontalStep;
-		if(player.x < ctx.gameAreaMinX) {
-			player.x = ctx.gameAreaMinX;
-		}
-		else if(player.x + player.width > ctx.gameAreaMaxX) {
-			player.x = ctx.gameAreaMaxX - (int16_t)player.width - (int16_t)1;
-		}
+		RestoreInsideBoundsHoriz(&player);
 		
 		// Player bullet move
 		if(bullet.active) {
@@ -128,12 +123,7 @@ int main() {
 		
 		// Enemy move
 		enemy.x += ctx.enemyHorizontalStep;
-		if(enemy.x < ctx.gameAreaMinX) {
-			enemy.x = ctx.gameAreaMinX;
-		}
-		else if(enemy.x + enemy.width > ctx.gameAreaMaxX) {
-			enemy.x = ctx.gameAreaMaxX - (int16_t)enemy.width - (int16_t)1;
-		}
+		RestoreInsideBoundsHoriz(&enemy);
 		
 		// Player bullet render
 		if(bullet.active) {
