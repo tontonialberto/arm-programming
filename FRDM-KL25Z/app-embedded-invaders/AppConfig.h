@@ -23,4 +23,8 @@ extern const uint16_t PLAYER_BULLET_WIDTH;
 
 extern const uint16_t PLAYER_BULLET_HEIGHT;
 
+extern const uint16_t ENEMY_WIDTH;
+
+extern const uint16_t ENEMY_HEIGHT;
+
 #endif

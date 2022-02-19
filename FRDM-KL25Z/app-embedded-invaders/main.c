@@ -50,6 +50,13 @@ int main() {
 	bullet.active = false;
 	bullet.ctx = &ctx;
 	
+	GameObject enemy;
+	enemy.x = 30;
+	enemy.y = 5;
+	enemy.width = ENEMY_WIDTH;
+	enemy.height = ENEMY_HEIGHT;
+	enemy.ctx = &ctx;
+	
 	delayMs(100);
 	
 	while(1) {
@@ -113,6 +120,14 @@ int main() {
 			(uint8_t)player.y, 
 			(uint8_t)player.width, 
 			(uint8_t)player.height);
+		
+		// Enemy render
+		SSD1306_WriteRectangle(
+			&oledData,
+			(uint8_t)enemy.x,
+			(uint8_t)enemy.y,
+			(uint8_t)enemy.width,
+			(uint8_t)enemy.height);
 		
 		SSD1306_Update(&oledData);
 	}
