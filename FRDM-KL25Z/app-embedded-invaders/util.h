@@ -3,6 +3,14 @@
 
 #include "SSD1306/SSD1306.h"
 
+/// \param [in] timeoutMs The event frequency.
+/// \param [in] lastTimeoutMs The last time that the event triggered, expressed in system time.
+struct PeriodicEvent {
+	uint32_t timeoutMs;
+	uint32_t lastTimeoutMs;
+};
+typedef struct PeriodicEvent PeriodicEvent;
+
 /// \brief Write positive integer on the buffer, 
 /// 	given the (x,y) coordinate of the least important digit.
 /// \param [in] value Value to be displayed.

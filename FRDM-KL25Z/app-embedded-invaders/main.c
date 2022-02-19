@@ -8,6 +8,8 @@
 #include "GameUtils.h"
 #include "ISR.h"
 #include "AppConfig.h"
+#include "Timer.h"
+#include "TimerImpl.h"
 
 I2C_Result I2C_Write_Adapter(
 	uint8_t address, 
@@ -32,6 +34,8 @@ int main() {
 	
 	GameContext ctx;
 	ctx.playerBulletVerticalStep = PLAYER_BULLET_UP_STEP;
+	ctx.playerHorizontalStep = 0;
+	ctx.enemyHorizontalStep = 0;
 	ctx.gameAreaMinX = SCREEN_MIN_X;
 	ctx.gameAreaMaxX = SCREEN_MAX_X;
 	ctx.gameAreaMinY = SCREEN_MIN_Y;
@@ -57,6 +61,10 @@ int main() {
 	enemy.height = ENEMY_HEIGHT;
 	enemy.ctx = &ctx;
 	
+	PeriodicEvent evtEnemyMove;
+	evtEnemyMove.timeoutMs = 1000;
+	evtEnemyMove.lastTimeoutMs = 0;
+	
 	delayMs(100);
 	
 	while(1) {
@@ -77,6 +85,18 @@ int main() {
 		}
 		else {
 			ctx.playerHorizontalStep = 0;
+		}
+		
+		// Periodic event processing
+		if(evtEnemyMove.timeoutMs <= Timer_GetElapsedMsSince(evtEnemyMove.lastTimeoutMs)) {
+			// Execute the event: update enemy horiz step
+			ctx.enemyHorizontalStep = 10;
+			evtEnemyMove.lastTimeoutMs = Timer_GetElapsedMs();
+		}
+		else {
+			// Execute the operation that must happen when
+			// the event is not triggered.
+			ctx.enemyHorizontalStep = 0;
 		}
 		
 		// Spawn bullet if needed
@@ -102,6 +122,9 @@ int main() {
 		if(bullet.y < ctx.gameAreaMinY) {
 			bullet.active = false;
 		}
+		
+		// Enemy move
+		enemy.x += ctx.enemyHorizontalStep;
 		
 		// Player bullet render
 		if(bullet.active) {
