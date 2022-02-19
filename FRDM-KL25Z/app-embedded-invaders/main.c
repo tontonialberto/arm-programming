@@ -25,6 +25,9 @@ int main() {
 	
 	HardwareInit();
 	
+	Timer_GetElapsedMs = TimerImpl_GetElapsedMs;
+	Timer_GetElapsedMsSince = TimerImpl_GetElapsedMsSince;
+	
 	oledData.buffer = oledBuffer;
 	oledData.I2C_Write_BufferSize = 64;
 	oledData.I2C_Write = I2C_Write_Adapter;
