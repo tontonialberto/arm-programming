@@ -31,9 +31,11 @@ bool RestoreInsideBoundsHoriz(GameObject *go) {
 	GameContext *ctx = go->ctx;
 	if(go->x < ctx->gameAreaMinX) {
 		go->x = ctx->gameAreaMinX;
+		wasOutOfBounds = true;
 	}
 	else if(go->x + go->width > ctx->gameAreaMaxX) {
 		go->x = ctx->gameAreaMaxX - (int16_t)go->width - (int16_t)1;
+		wasOutOfBounds = true;
 	}
 	return wasOutOfBounds;
 }

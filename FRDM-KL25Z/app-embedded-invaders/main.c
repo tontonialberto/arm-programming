@@ -39,6 +39,7 @@ int main() {
 	ctx.playerBulletVerticalStep = PLAYER_BULLET_UP_STEP;
 	ctx.playerHorizontalStep = 0;
 	ctx.enemyHorizontalStep = 0;
+	ctx.enemyHorizontalDirection = 1;
 	ctx.gameAreaMinX = SCREEN_MIN_X;
 	ctx.gameAreaMaxX = SCREEN_MAX_X;
 	ctx.gameAreaMinY = SCREEN_MIN_Y;
@@ -93,7 +94,7 @@ int main() {
 		// Periodic event processing
 		if(evtEnemyMove.timeoutMs <= Timer_GetElapsedMsSince(evtEnemyMove.lastTimeoutMs)) {
 			// Execute the event: update enemy horiz step
-			ctx.enemyHorizontalStep = 10;
+			ctx.enemyHorizontalStep = 10 * ctx.enemyHorizontalDirection;
 			evtEnemyMove.lastTimeoutMs = Timer_GetElapsedMs();
 		}
 		else {
@@ -123,7 +124,9 @@ int main() {
 		
 		// Enemy move
 		enemy.x += ctx.enemyHorizontalStep;
-		RestoreInsideBoundsHoriz(&enemy);
+		if(RestoreInsideBoundsHoriz(&enemy)) {
+			ctx.enemyHorizontalDirection *= -1;
+		}
 		
 		// Player bullet render
 		if(bullet.active) {
