@@ -124,8 +124,13 @@ int main() {
 		
 		// Enemy move
 		enemy.x += ctx.enemyHorizontalStep;
+		enemy.y += ctx.enemyVerticalStep;
 		if(RestoreInsideBoundsHoriz(&enemy)) {
 			ctx.enemyHorizontalDirection *= -1;
+			ctx.enemyVerticalStep = 5;
+		}
+		else {
+			ctx.enemyVerticalStep = 0;
 		}
 		
 		// Player bullet render
