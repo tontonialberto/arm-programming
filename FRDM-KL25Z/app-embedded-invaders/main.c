@@ -66,7 +66,7 @@ int main() {
 	enemy.ctx = &ctx;
 	
 	PeriodicEvent evtEnemyMove;
-	evtEnemyMove.timeoutMs = 200;
+	evtEnemyMove.timeoutMs = EVT_ENEMY_MOVE_PERIOD_MS;
 	evtEnemyMove.lastTimeoutMs = 0;
 	
 	delayMs(100);
@@ -94,7 +94,7 @@ int main() {
 		// Periodic event processing
 		if(evtEnemyMove.timeoutMs <= Timer_GetElapsedMsSince(evtEnemyMove.lastTimeoutMs)) {
 			// Execute the event: update enemy horiz step
-			ctx.enemyHorizontalStep = 10 * ctx.enemyHorizontalDirection;
+			ctx.enemyHorizontalStep = ENEMY_RIGHT_STEP * ctx.enemyHorizontalDirection;
 			evtEnemyMove.lastTimeoutMs = Timer_GetElapsedMs();
 		}
 		else {
@@ -127,7 +127,7 @@ int main() {
 		enemy.y += ctx.enemyVerticalStep;
 		if(RestoreInsideBoundsHoriz(&enemy)) {
 			ctx.enemyHorizontalDirection *= -1;
-			ctx.enemyVerticalStep = 5;
+			ctx.enemyVerticalStep = ENEMY_DOWN_STEP;
 		}
 		else {
 			ctx.enemyVerticalStep = 0;
