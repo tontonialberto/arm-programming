@@ -19,6 +19,7 @@ struct GameContext {
 	int16_t enemyHorizontalStep;
 	int8_t enemyHorizontalDirection;
 	int16_t enemyVerticalStep;
+	bool hasEnemyHitBoundary;
 	int16_t gameAreaMinX;
 	int16_t gameAreaMaxX;
 	int16_t gameAreaMinY;

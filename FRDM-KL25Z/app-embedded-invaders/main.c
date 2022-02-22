@@ -40,6 +40,8 @@ int main() {
 	ctx.playerHorizontalStep = 0;
 	ctx.enemyHorizontalStep = 0;
 	ctx.enemyHorizontalDirection = 1;
+	ctx.enemyVerticalStep = 0;
+	ctx.hasEnemyHitBoundary = false;
 	ctx.gameAreaMinX = SCREEN_MIN_X;
 	ctx.gameAreaMaxX = SCREEN_MAX_X;
 	ctx.gameAreaMinY = SCREEN_MIN_Y;
@@ -126,6 +128,13 @@ int main() {
 		enemy.x += ctx.enemyHorizontalStep;
 		enemy.y += ctx.enemyVerticalStep;
 		if(RestoreInsideBoundsHoriz(&enemy)) {
+			ctx.hasEnemyHitBoundary = true;
+		}
+		
+		// Invert enemies direction and move them down
+		// if any of them has hit a boundary
+		if(ctx.hasEnemyHitBoundary) {
+			ctx.hasEnemyHitBoundary = false;
 			ctx.enemyHorizontalDirection *= -1;
 			ctx.enemyVerticalStep = ENEMY_DOWN_STEP;
 		}
