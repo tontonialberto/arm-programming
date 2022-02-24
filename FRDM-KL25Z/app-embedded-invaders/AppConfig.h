@@ -11,26 +11,4 @@ extern const int16_t SCREEN_MAX_X;
 
 extern const int16_t SCREEN_MIN_Y;
 
-extern const int16_t PLAYER_RIGHT_STEP;
-
-extern const int16_t PLAYER_BULLET_UP_STEP;
-
-extern const int16_t ENEMY_RIGHT_STEP;
-
-extern const int16_t ENEMY_DOWN_STEP;
-
-extern const uint16_t PLAYER_WIDTH;
-
-extern const uint16_t PLAYER_HEIGHT;
-
-extern const uint16_t PLAYER_BULLET_WIDTH;
-
-extern const uint16_t PLAYER_BULLET_HEIGHT;
-
-extern const uint16_t ENEMY_WIDTH;
-
-extern const uint16_t ENEMY_HEIGHT;
-
-extern const uint32_t EVT_ENEMY_MOVE_PERIOD_MS;
-
 #endif

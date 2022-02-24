@@ -508,6 +508,21 @@
               <FileType>5</FileType>
               <FilePath>.\game\GameUtils.h</FilePath>
             </File>
+            <File>
+              <FileName>MoveFunctions.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\game\MoveFunctions.h</FilePath>
+            </File>
+            <File>
+              <FileName>GameConfig.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\game\GameConfig.h</FilePath>
+            </File>
+            <File>
+              <FileName>GameConfig.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\game\GameConfig.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

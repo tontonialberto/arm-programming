@@ -10,6 +10,8 @@
 #include "AppConfig.h"
 #include "Timer.h"
 #include "TimerImpl.h"
+#include "GameConfig.h"
+#include "MoveFunctions.h"
 
 I2C_Result I2C_Write_Adapter(
 	uint8_t address, 
@@ -41,7 +43,15 @@ int main() {
 	ctx.enemyHorizontalStep = 0;
 	ctx.enemyHorizontalDirection = 1;
 	ctx.enemyVerticalStep = 0;
+	ctx.enemiesRect.x = 30;
+	ctx.enemiesRect.y = 5;
+	ctx.enemiesRect.width = ENEMY_WIDTH * ENEMY_COLUMNS; // TODO: consider spacing
+	ctx.enemiesRect.height = ENEMY_HEIGHT;
 	ctx.hasEnemyHitBoundary = false;
+	ctx.gameArea.x = SCREEN_MIN_X;
+	ctx.gameArea.width = (uint16_t)(SCREEN_MAX_X - SCREEN_MIN_X);
+	ctx.gameArea.y = SCREEN_MIN_Y;
+	ctx.gameArea.height = (uint16_t)(32 - SCREEN_MIN_Y); // TODO: extract constant
 	ctx.gameAreaMinX = SCREEN_MIN_X;
 	ctx.gameAreaMaxX = SCREEN_MAX_X;
 	ctx.gameAreaMinY = SCREEN_MIN_Y;
@@ -60,12 +70,21 @@ int main() {
 	bullet.active = false;
 	bullet.ctx = &ctx;
 	
-	GameObject enemy;
-	enemy.x = 30;
-	enemy.y = 5;
-	enemy.width = ENEMY_WIDTH;
-	enemy.height = ENEMY_HEIGHT;
-	enemy.ctx = &ctx;
+	Enemy enemy;
+	enemy.index = 0;
+	enemy.go.x = 30;
+	enemy.go.y = 5;
+	enemy.go.width = ENEMY_WIDTH;
+	enemy.go.height = ENEMY_HEIGHT;
+	enemy.go.ctx = &ctx;
+	
+	Enemy otherEnemy;
+	otherEnemy.index = 1;
+	otherEnemy.go.x = 30 + (int16_t)ENEMY_WIDTH;
+	otherEnemy.go.y = 5;
+	otherEnemy.go.width = ENEMY_WIDTH;
+	otherEnemy.go.height = ENEMY_HEIGHT;
+	otherEnemy.go.ctx = &ctx;
 	
 	PeriodicEvent evtEnemyMove;
 	evtEnemyMove.timeoutMs = EVT_ENEMY_MOVE_PERIOD_MS;
@@ -124,12 +143,16 @@ int main() {
 			bullet.active = false;
 		}
 		
-		// Enemy move
-		enemy.x += ctx.enemyHorizontalStep;
-		enemy.y += ctx.enemyVerticalStep;
-		if(RestoreInsideBoundsHoriz(&enemy)) {
+		// Enemies rect move
+		ctx.enemiesRect.x += ctx.enemyHorizontalStep;
+		ctx.enemiesRect.y += ctx.enemyVerticalStep;
+		if(RestoreInsideBoundsHoriz2(&ctx.enemiesRect, &ctx.gameArea)) {
 			ctx.hasEnemyHitBoundary = true;
 		}
+		
+		// Enemies move
+		Enemy_Move(&enemy);
+		Enemy_Move(&otherEnemy);
 		
 		// Invert enemies direction and move them down
 		// if any of them has hit a boundary
@@ -163,10 +186,17 @@ int main() {
 		// Enemy render
 		SSD1306_WriteRectangle(
 			&oledData,
-			(uint8_t)enemy.x,
-			(uint8_t)enemy.y,
-			(uint8_t)enemy.width,
-			(uint8_t)enemy.height);
+			(uint8_t)enemy.go.x,
+			(uint8_t)enemy.go.y,
+			(uint8_t)enemy.go.width,
+			(uint8_t)enemy.go.height);
+		
+		SSD1306_WriteRectangle(
+			&oledData,
+			(uint8_t)otherEnemy.go.x,
+			(uint8_t)otherEnemy.go.y,
+			(uint8_t)otherEnemy.go.width,
+			(uint8_t)otherEnemy.go.height);
 		
 		SSD1306_Update(&oledData);
 	}

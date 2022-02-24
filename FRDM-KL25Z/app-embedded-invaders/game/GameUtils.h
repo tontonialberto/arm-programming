@@ -15,6 +15,8 @@ void SetSpawnPosition_PlayerBullet(GameObject *bullet, const GameObject *player)
 /// \return true if object was out of bounds, false otherwise.
 bool RestoreInsideBoundsHoriz(GameObject *go);
 
+bool RestoreInsideBoundsHoriz2(Rect2D *obj, Rect2D *bounds);
+
 void SetSpawnPosition_PlayerBullet(GameObject *bullet, const GameObject *player) {
 	if(player == NULL || bullet == NULL) 
 		return;
@@ -35,6 +37,22 @@ bool RestoreInsideBoundsHoriz(GameObject *go) {
 	}
 	else if(go->x + go->width > ctx->gameAreaMaxX) {
 		go->x = ctx->gameAreaMaxX - (int16_t)go->width - (int16_t)1;
+		wasOutOfBounds = true;
+	}
+	return wasOutOfBounds;
+}
+
+bool RestoreInsideBoundsHoriz2(Rect2D *obj, Rect2D *bounds) {
+	bool wasOutOfBounds = false;
+	if(obj == NULL || bounds == NULL)
+		return wasOutOfBounds;
+	
+	if(obj->x < bounds->x) {
+		obj->x = bounds->x;
+		wasOutOfBounds = true;
+	}
+	else if(obj->x + obj->width > bounds->x + bounds->width) {
+		obj->x = (int16_t)bounds->width - (int16_t)obj->width - (int16_t)1;
 		wasOutOfBounds = true;
 	}
 	return wasOutOfBounds;
