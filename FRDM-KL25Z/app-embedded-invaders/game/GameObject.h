@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 struct Rect2D;
 typedef struct Rect2D Rect2D;
@@ -35,27 +36,44 @@ struct GameContext {
 	bool hasEnemyHitBoundary;
 	Rect2D enemiesRect;
 	Rect2D gameArea;
-	int16_t gameAreaMinX;
-	int16_t gameAreaMaxX;
-	int16_t gameAreaMinY;
 	bool spawnPlayerBullet;
 };
 
 struct GameObject {
-	int16_t x;
-	int16_t y;
-	uint16_t width;
-	uint16_t height;
-	GameContext *ctx;
-	bool active;
-	
 	MoveFn move;
 	RenderFn render;
+	
+	Rect2D rect;
+	GameContext *ctx;
+	bool active;
 };
 
 struct Enemy {
 	GameObject go;
 	int16_t index;
 };
+
+void Rect2D_Init(
+	Rect2D *rect, 
+	int16_t x, 
+	int16_t y,
+	uint16_t width,
+	uint16_t height);
+
+void Rect2D_Init(
+		Rect2D *rect, 
+		int16_t x, 
+		int16_t y,
+		uint16_t width,
+		uint16_t height) {
+	
+	if(rect == NULL) 
+		return;
+	
+	rect->x = x;
+	rect->y = y;
+	rect->width = width;
+	rect->height = height;
+}
 
 #endif

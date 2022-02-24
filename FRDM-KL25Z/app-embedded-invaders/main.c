@@ -43,47 +43,40 @@ int main() {
 	ctx.enemyHorizontalStep = 0;
 	ctx.enemyHorizontalDirection = 1;
 	ctx.enemyVerticalStep = 0;
-	ctx.enemiesRect.x = 30;
-	ctx.enemiesRect.y = 5;
-	ctx.enemiesRect.width = ENEMY_WIDTH * ENEMY_COLUMNS; // TODO: consider spacing
-	ctx.enemiesRect.height = ENEMY_HEIGHT;
+	// TODO: consider spacing between enemies
+	Rect2D_Init(
+		&ctx.enemiesRect, 
+		30, 
+		5, 
+		ENEMY_WIDTH * ENEMY_COLUMNS, 
+		ENEMY_HEIGHT);
 	ctx.hasEnemyHitBoundary = false;
-	ctx.gameArea.x = SCREEN_MIN_X;
-	ctx.gameArea.width = (uint16_t)(SCREEN_MAX_X - SCREEN_MIN_X);
-	ctx.gameArea.y = SCREEN_MIN_Y;
-	ctx.gameArea.height = (uint16_t)(32 - SCREEN_MIN_Y); // TODO: extract constant
-	ctx.gameAreaMinX = SCREEN_MIN_X;
-	ctx.gameAreaMaxX = SCREEN_MAX_X;
-	ctx.gameAreaMinY = SCREEN_MIN_Y;
+	Rect2D_Init(
+		&ctx.gameArea, 
+		SCREEN_MIN_X, 
+		SCREEN_MIN_Y,
+		(uint16_t)(SCREEN_MAX_X - SCREEN_MIN_X),
+		(uint16_t)(32 - SCREEN_MIN_Y)); // TODO: extract constant
 	ctx.spawnPlayerBullet = false;
 	
 	GameObject player;
-	player.x = 56;
-	player.y = 24;
-	player.width = PLAYER_WIDTH;
-	player.height = PLAYER_HEIGHT;
+	Rect2D_Init(&player.rect, 56, 24, PLAYER_WIDTH, PLAYER_HEIGHT);
 	player.ctx = &ctx;
 	
 	GameObject bullet;
-	bullet.width = PLAYER_BULLET_WIDTH;
-	bullet.height = PLAYER_BULLET_HEIGHT;
+	bullet.rect.width = PLAYER_BULLET_WIDTH;
+	bullet.rect.height = PLAYER_BULLET_HEIGHT;
 	bullet.active = false;
 	bullet.ctx = &ctx;
 	
 	Enemy enemy;
 	enemy.index = 0;
-	enemy.go.x = 30;
-	enemy.go.y = 5;
-	enemy.go.width = ENEMY_WIDTH;
-	enemy.go.height = ENEMY_HEIGHT;
+	Rect2D_Init(&enemy.go.rect, 30, 5, ENEMY_WIDTH, ENEMY_HEIGHT);
 	enemy.go.ctx = &ctx;
 	
 	Enemy otherEnemy;
 	otherEnemy.index = 1;
-	otherEnemy.go.x = 30 + (int16_t)ENEMY_WIDTH;
-	otherEnemy.go.y = 5;
-	otherEnemy.go.width = ENEMY_WIDTH;
-	otherEnemy.go.height = ENEMY_HEIGHT;
+	Rect2D_Init(&otherEnemy.go.rect, 30 + (int16_t)ENEMY_WIDTH, 5, ENEMY_WIDTH, ENEMY_HEIGHT);
 	otherEnemy.go.ctx = &ctx;
 	
 	PeriodicEvent evtEnemyMove;
@@ -132,21 +125,21 @@ int main() {
 		}
 		
 		// Player move
-		player.x += ctx.playerHorizontalStep;
-		RestoreInsideBoundsHoriz(&player);
+		player.rect.x += ctx.playerHorizontalStep;
+		RestoreInsideBoundsHoriz(&player.rect, &ctx.gameArea);
 		
 		// Player bullet move
 		if(bullet.active) {
-			bullet.y += ctx.playerBulletVerticalStep;
+			bullet.rect.y += ctx.playerBulletVerticalStep;
 		}
-		if(bullet.y < ctx.gameAreaMinY) {
+		if(bullet.rect.y < ctx.gameArea.y) {
 			bullet.active = false;
 		}
 		
 		// Enemies rect move
 		ctx.enemiesRect.x += ctx.enemyHorizontalStep;
 		ctx.enemiesRect.y += ctx.enemyVerticalStep;
-		if(RestoreInsideBoundsHoriz2(&ctx.enemiesRect, &ctx.gameArea)) {
+		if(RestoreInsideBoundsHoriz(&ctx.enemiesRect, &ctx.gameArea)) {
 			ctx.hasEnemyHitBoundary = true;
 		}
 		
@@ -169,34 +162,34 @@ int main() {
 		if(bullet.active) {
 			SSD1306_WriteRectangle(
 				&oledData, 
-				(uint8_t)bullet.x, 
-				(uint8_t)bullet.y, 
-				(uint8_t)bullet.width, 
-				(uint8_t)bullet.height);
+				(uint8_t)bullet.rect.x, 
+				(uint8_t)bullet.rect.y, 
+				(uint8_t)bullet.rect.width, 
+				(uint8_t)bullet.rect.height);
 		}
 		
 		// Player render
 		SSD1306_WriteRectangle(
 			&oledData, 
-			(uint8_t)player.x, 
-			(uint8_t)player.y, 
-			(uint8_t)player.width, 
-			(uint8_t)player.height);
+			(uint8_t)player.rect.x, 
+			(uint8_t)player.rect.y, 
+			(uint8_t)player.rect.width, 
+			(uint8_t)player.rect.height);
 		
 		// Enemy render
 		SSD1306_WriteRectangle(
 			&oledData,
-			(uint8_t)enemy.go.x,
-			(uint8_t)enemy.go.y,
-			(uint8_t)enemy.go.width,
-			(uint8_t)enemy.go.height);
+			(uint8_t)enemy.go.rect.x,
+			(uint8_t)enemy.go.rect.y,
+			(uint8_t)enemy.go.rect.width,
+			(uint8_t)enemy.go.rect.height);
 		
 		SSD1306_WriteRectangle(
 			&oledData,
-			(uint8_t)otherEnemy.go.x,
-			(uint8_t)otherEnemy.go.y,
-			(uint8_t)otherEnemy.go.width,
-			(uint8_t)otherEnemy.go.height);
+			(uint8_t)otherEnemy.go.rect.x,
+			(uint8_t)otherEnemy.go.rect.y,
+			(uint8_t)otherEnemy.go.rect.width,
+			(uint8_t)otherEnemy.go.rect.height);
 		
 		SSD1306_Update(&oledData);
 	}
