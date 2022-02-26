@@ -43,12 +43,12 @@ int main() {
 	ctx.enemyHorizontalStep = 0;
 	ctx.enemyHorizontalDirection = 1;
 	ctx.enemyVerticalStep = 0;
-	// TODO: consider spacing between enemies
+	// TODO: consider vertical spacing between enemies
 	Rect2D_Init(
 		&ctx.enemiesRect, 
 		30, 
 		5, 
-		ENEMY_WIDTH * ENEMY_COLUMNS, 
+		(ENEMY_WIDTH * ENEMY_COLUMNS) + (uint16_t)(ENEMY_HORIZ_SPACING * (ENEMY_COLUMNS - 1)), 
 		ENEMY_HEIGHT);
 	ctx.hasEnemyHitBoundary = false;
 	Rect2D_Init(
@@ -76,7 +76,7 @@ int main() {
 	
 	Enemy otherEnemy;
 	otherEnemy.index = 1;
-	Rect2D_Init(&otherEnemy.go.rect, 30 + (int16_t)ENEMY_WIDTH, 5, ENEMY_WIDTH, ENEMY_HEIGHT);
+	Rect2D_Init(&otherEnemy.go.rect, 30 + (int16_t)ENEMY_WIDTH + ENEMY_HORIZ_SPACING, 5, ENEMY_WIDTH, ENEMY_HEIGHT);
 	otherEnemy.go.ctx = &ctx;
 	
 	PeriodicEvent evtEnemyMove;

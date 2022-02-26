@@ -25,6 +25,8 @@ extern const uint16_t ENEMY_HEIGHT;
 
 extern const uint16_t ENEMY_COLUMNS;
 
+extern const int16_t ENEMY_HORIZ_SPACING;
+
 extern const uint32_t EVT_ENEMY_MOVE_PERIOD_MS;
 
 #endif

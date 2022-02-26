@@ -16,7 +16,7 @@ void Enemy_Move(void *_enemy) {
 	Rect2D *enemiesRect = &go->ctx->enemiesRect;
 	Rect2D *rect = &go->rect;
 	
-	rect->x = enemiesRect->x + (int16_t)(rect->width * (enemy->index % ENEMY_COLUMNS));
+	rect->x = enemiesRect->x + (int16_t)((rect->width + ENEMY_HORIZ_SPACING) * (enemy->index % ENEMY_COLUMNS));
 	rect->y = enemiesRect->y + (int16_t)(rect->height * (enemy->index / ENEMY_COLUMNS));
 }
 
