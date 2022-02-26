@@ -24,4 +24,6 @@ const uint16_t ENEMY_COLUMNS = 2;
 
 const int16_t ENEMY_HORIZ_SPACING = 5;
 
+const int16_t ENEMY_VERTICAL_SPACING = 2;
+
 const uint32_t EVT_ENEMY_MOVE_PERIOD_MS = 1000;

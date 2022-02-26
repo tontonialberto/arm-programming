@@ -21,10 +21,9 @@ I2C_Result I2C_Write_Adapter(
 
 static bool oledInit = false;
 static uint8_t oledBuffer[SSD1306_BUFFER_SIZE];
+static SSD1306_Data oledData;
 
 int main() {
-	SSD1306_Data oledData;
-	
 	HardwareInit();
 	
 	Timer_GetElapsedMs = TimerImpl_GetElapsedMs;
@@ -71,13 +70,28 @@ int main() {
 	
 	Enemy enemy;
 	enemy.index = 0;
-	Rect2D_Init(&enemy.go.rect, 30, 5, ENEMY_WIDTH, ENEMY_HEIGHT);
+	Rect2D_Init(&enemy.go.rect, ctx.enemiesRect.x, ctx.enemiesRect.y, ENEMY_WIDTH, ENEMY_HEIGHT);
 	enemy.go.ctx = &ctx;
 	
 	Enemy otherEnemy;
 	otherEnemy.index = 1;
-	Rect2D_Init(&otherEnemy.go.rect, 30 + (int16_t)ENEMY_WIDTH + ENEMY_HORIZ_SPACING, 5, ENEMY_WIDTH, ENEMY_HEIGHT);
+	Rect2D_Init(
+		&otherEnemy.go.rect, 
+		ctx.enemiesRect.x + (int16_t)ENEMY_WIDTH + ENEMY_HORIZ_SPACING, 
+		ctx.enemiesRect.y, 
+		ENEMY_WIDTH, 
+		ENEMY_HEIGHT);
 	otherEnemy.go.ctx = &ctx;
+	
+	Enemy yetAnotherEnemy;
+	yetAnotherEnemy.index = 2;
+	Rect2D_Init(
+		&yetAnotherEnemy.go.rect, 
+		ctx.enemiesRect.x,
+		ctx.enemiesRect.y + (int16_t)ENEMY_HEIGHT + ENEMY_VERTICAL_SPACING,
+		ENEMY_WIDTH,
+		ENEMY_HEIGHT);
+	yetAnotherEnemy.go.ctx = &ctx;
 	
 	PeriodicEvent evtEnemyMove;
 	evtEnemyMove.timeoutMs = EVT_ENEMY_MOVE_PERIOD_MS;
@@ -146,6 +160,7 @@ int main() {
 		// Enemies move
 		Enemy_Move(&enemy);
 		Enemy_Move(&otherEnemy);
+		Enemy_Move(&yetAnotherEnemy);
 		
 		// Invert enemies direction and move them down
 		// if any of them has hit a boundary
@@ -190,6 +205,13 @@ int main() {
 			(uint8_t)otherEnemy.go.rect.y,
 			(uint8_t)otherEnemy.go.rect.width,
 			(uint8_t)otherEnemy.go.rect.height);
+			
+		SSD1306_WriteRectangle(
+			&oledData,
+			(uint8_t)yetAnotherEnemy.go.rect.x,
+			(uint8_t)yetAnotherEnemy.go.rect.y,
+			(uint8_t)yetAnotherEnemy.go.rect.width,
+			(uint8_t)yetAnotherEnemy.go.rect.height);
 		
 		SSD1306_Update(&oledData);
 	}
