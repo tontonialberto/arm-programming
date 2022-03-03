@@ -12,8 +12,7 @@
 | Device Pin  | FRDM-KL25Z Pin |
 | :---------: | :------------: |
 | DFR0555 SCL |      PTE1      |
-| DFR0555 SDA | PTE0
-               |
+| DFR0555 SDA | PTE0           |
 
 ## Credits
 * Chen et al. - "Freescale ARM Cortex-M Embedded Programming Using C Language"
