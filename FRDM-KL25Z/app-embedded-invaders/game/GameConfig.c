@@ -20,7 +20,7 @@ const uint16_t PLAYER_BULLET_WIDTH = 2;
 
 const uint16_t PLAYER_BULLET_HEIGHT = 3;
 
-const uint16_t ENEMY_WIDTH = 5;
+const uint16_t ENEMY_WIDTH = 8;
 
 const uint16_t ENEMY_HEIGHT = 3;
 

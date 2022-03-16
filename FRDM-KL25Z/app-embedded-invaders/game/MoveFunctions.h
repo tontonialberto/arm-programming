@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "GameObject.h"
 #include "GameConfig.h"
+#include "OnCollisionFunctions.h"
 
 void Enemy_Move(void *_enemy);
 
@@ -42,16 +43,17 @@ void PlayerBullet_Move(GameObject *bullet) {
 	// Take the first enemy that overlaps with the bullet
 	for(uint16_t i=0; i<ctx->nEnemies; i++) {
 		Enemy *enemy = &ctx->enemies[i];
+		bool isEnemyActive = enemy->go.active;
 		
-		if(Rect2D_Overlaps(enemy->go.rect, bullet->rect)) {
+		if(isEnemyActive && Rect2D_Overlaps(enemy->go.rect, bullet->rect)) {
 			overlappedEnemy = enemy;
 			break;
 		}
 	}
 	
 	if(overlappedEnemy != NULL) {
-		// TODO: Enemy_OnBulletCollision()
 		bullet->active = false;
+		Enemy_OnBulletCollision(overlappedEnemy);
 	}
 }
 

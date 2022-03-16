@@ -76,6 +76,7 @@ int main() {
 	enemies[0].index = 0;
 	Rect2D_Init(&enemies[0].go.rect, ctx.enemiesRect.x, ctx.enemiesRect.y, ENEMY_WIDTH, ENEMY_HEIGHT);
 	enemies[0].go.ctx = &ctx;
+	enemies[0].go.active = true;
 	
 	enemies[1].index = 1;
 	Rect2D_Init(
@@ -85,6 +86,7 @@ int main() {
 		ENEMY_WIDTH, 
 		ENEMY_HEIGHT);
 	enemies[1].go.ctx = &ctx;
+	enemies[1].go.active = true;
 	
 	enemies[2].index = 2;
 	Rect2D_Init(
@@ -94,6 +96,7 @@ int main() {
 		ENEMY_WIDTH,
 		ENEMY_HEIGHT);
 	enemies[2].go.ctx = &ctx;
+	enemies[2].go.active = true;
 	
 	ctx.nEnemies = N_ENEMIES;
 	ctx.enemies = enemies;
@@ -148,7 +151,9 @@ int main() {
 		RestoreInsideBoundsHoriz(&player.rect, &ctx.gameArea);
 		
 		// Player bullet move
-		PlayerBullet_Move(&bullet);
+		if(bullet.active) {
+			PlayerBullet_Move(&bullet);
+		}
 		
 		// Enemies rect move
 		ctx.enemiesRect.x += ctx.enemyHorizontalStep;
@@ -159,7 +164,9 @@ int main() {
 		
 		// Enemies move
 		for(uint16_t i=0; i<N_ENEMIES; i++) {
-			Enemy_Move(&enemies[i]);
+			if(enemies[i].go.active) {
+				Enemy_Move(&enemies[i]);
+			}
 		}
 		
 		// Invert enemies direction and move them down
@@ -193,12 +200,14 @@ int main() {
 		
 		// Enemy render
 		for(uint16_t i=0; i<N_ENEMIES; i++) {
-			SSD1306_WriteRectangle(
-				&oledData,
-				(uint8_t)enemies[i].go.rect.x,
-				(uint8_t)enemies[i].go.rect.y,
-				(uint8_t)enemies[i].go.rect.width,
-				(uint8_t)enemies[i].go.rect.height);
+			if(enemies[i].go.active) {
+				SSD1306_WriteRectangle(
+					&oledData,
+					(uint8_t)enemies[i].go.rect.x,
+					(uint8_t)enemies[i].go.rect.y,
+					(uint8_t)enemies[i].go.rect.width,
+					(uint8_t)enemies[i].go.rect.height);
+			}
 		}
 		
 		SSD1306_Update(&oledData);
