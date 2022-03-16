@@ -7,6 +7,8 @@
 
 void Enemy_Move(void *_enemy);
 
+void PlayerBullet_Move(GameObject *bullet);
+
 void Enemy_Move(void *_enemy) {
 	if(_enemy == NULL)
 		return;
@@ -20,6 +22,21 @@ void Enemy_Move(void *_enemy) {
 		(int16_t)((rect->width + ENEMY_HORIZ_SPACING) * (enemy->index % ENEMY_COLUMNS));
 	rect->y = enemiesRect->y + 
 		(int16_t)((rect->height + ENEMY_VERTICAL_SPACING) * (enemy->index / ENEMY_COLUMNS));
+}
+
+void PlayerBullet_Move(GameObject *bullet) {
+	if(bullet == NULL)
+		return;
+	
+	GameContext *ctx = bullet->ctx;
+	
+	if(bullet->active) {
+		bullet->rect.y += ctx->playerBulletVerticalStep;
+	}
+	if(bullet->rect.y < ctx->gameArea.y) {
+		bullet->active = false;
+	}
+	// TODO: Player bullet collision check
 }
 
 #endif

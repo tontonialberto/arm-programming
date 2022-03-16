@@ -145,12 +145,7 @@ int main() {
 		RestoreInsideBoundsHoriz(&player.rect, &ctx.gameArea);
 		
 		// Player bullet move
-		if(bullet.active) {
-			bullet.rect.y += ctx.playerBulletVerticalStep;
-		}
-		if(bullet.rect.y < ctx.gameArea.y) {
-			bullet.active = false;
-		}
+		PlayerBullet_Move(&bullet);
 		
 		// Enemies rect move
 		ctx.enemiesRect.x += ctx.enemyHorizontalStep;
