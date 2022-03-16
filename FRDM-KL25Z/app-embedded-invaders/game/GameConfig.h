@@ -29,6 +29,12 @@ extern const int16_t ENEMY_HORIZ_SPACING;
 
 extern const int16_t ENEMY_VERTICAL_SPACING;
 
+extern const int16_t ENEMIES_RECT_INITIAL_X;
+
+extern const int16_t ENEMIES_RECT_INITIAL_Y;
+
+extern const uint16_t ENEMIES_RECT_WIDTH;
+
 extern const uint32_t EVT_ENEMY_MOVE_PERIOD_MS;
 
 #endif

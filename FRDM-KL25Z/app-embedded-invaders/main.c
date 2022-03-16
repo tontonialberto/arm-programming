@@ -40,9 +40,9 @@ int main() {
 	// TODO: consider vertical spacing between enemies
 	Rect2D_Init(
 		&enemiesRect,
-		30, 
-		5, 
-		(ENEMY_WIDTH * ENEMY_COLUMNS) + (uint16_t)(ENEMY_HORIZ_SPACING * (ENEMY_COLUMNS - 1)), 
+		ENEMIES_RECT_INITIAL_X, 
+		ENEMIES_RECT_INITIAL_Y,
+		ENEMIES_RECT_WIDTH,
 		ENEMY_HEIGHT);
 	
 	Rect2D gameArea;
