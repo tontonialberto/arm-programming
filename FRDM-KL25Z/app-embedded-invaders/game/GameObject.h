@@ -39,6 +39,7 @@ struct GameContext {
 	bool spawnPlayerBullet;
 	Enemy *enemies;
 	uint16_t nEnemies;
+	uint32_t score;
 };
 
 struct GameObject {
@@ -105,6 +106,7 @@ void GameContext_Init(
 	ctx->hasEnemyHitBoundary = false;
 	ctx->playerBulletVerticalStep = playerBulletVerticalStep;
 	ctx->playerHorizontalStep = 0;
+	ctx->score = 0;
 	ctx->spawnPlayerBullet = false;
 }
 		

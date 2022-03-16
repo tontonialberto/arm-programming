@@ -210,6 +210,12 @@ int main() {
 			}
 		}
 		
+		// Score render
+		SSD1306_WriteUnsignedInt(
+			&oledData,
+			(int32_t)ctx.score,
+			100, 0);
+		
 		SSD1306_Update(&oledData);
 	}
 }
