@@ -36,7 +36,23 @@ void PlayerBullet_Move(GameObject *bullet) {
 	if(bullet->rect.y < ctx->gameArea.y) {
 		bullet->active = false;
 	}
-	// TODO: Player bullet collision check
+	
+	Enemy *overlappedEnemy = NULL;
+	
+	// Take the first enemy that overlaps with the bullet
+	for(uint16_t i=0; i<ctx->nEnemies; i++) {
+		Enemy *enemy = &ctx->enemies[i];
+		
+		if(Rect2D_Overlaps(enemy->go.rect, bullet->rect)) {
+			overlappedEnemy = enemy;
+			break;
+		}
+	}
+	
+	if(overlappedEnemy != NULL) {
+		// TODO: Enemy_OnBulletCollision()
+		bullet->active = false;
+	}
 }
 
 #endif

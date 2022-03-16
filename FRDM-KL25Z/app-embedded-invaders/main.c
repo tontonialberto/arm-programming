@@ -95,6 +95,9 @@ int main() {
 		ENEMY_HEIGHT);
 	enemies[2].go.ctx = &ctx;
 	
+	ctx.nEnemies = N_ENEMIES;
+	ctx.enemies = enemies;
+	
 	PeriodicEvent evtEnemyMove;
 	evtEnemyMove.timeoutMs = EVT_ENEMY_MOVE_PERIOD_MS;
 	evtEnemyMove.lastTimeoutMs = 0;
