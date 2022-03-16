@@ -60,6 +60,13 @@ void Rect2D_Init(
 	uint16_t width,
 	uint16_t height);
 
+void GameContext_Init(
+	GameContext *ctx,
+	int8_t enemyHorizontalDirection,
+	int16_t playerBulletVerticalStep,
+	const Rect2D *enemiesRect,
+	const Rect2D *gameArea);
+
 void Rect2D_Init(
 		Rect2D *rect, 
 		int16_t x, 
@@ -75,5 +82,26 @@ void Rect2D_Init(
 	rect->width = width;
 	rect->height = height;
 }
+		
+void GameContext_Init(
+		GameContext *ctx,
+		int8_t enemyHorizontalDirection,
+		int16_t playerBulletVerticalStep,
+		const Rect2D *enemiesRect,
+		const Rect2D *gameArea) {
+	
+	if(ctx == NULL || enemiesRect == NULL || gameArea == NULL)
+		return;
+			
+	ctx->enemiesRect = *enemiesRect;
+	ctx->enemyHorizontalDirection = enemyHorizontalDirection;
+	ctx->enemyHorizontalStep = 0;
+	ctx->enemyVerticalStep = 0;
+	ctx->gameArea = *gameArea;
+	ctx->hasEnemyHitBoundary = false;
+	ctx->playerBulletVerticalStep = playerBulletVerticalStep;
+	ctx->playerHorizontalStep = 0;
+	ctx->spawnPlayerBullet = false;
+}			
 
 #endif

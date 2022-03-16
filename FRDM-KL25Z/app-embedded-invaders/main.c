@@ -36,27 +36,25 @@ int main() {
 	
 	oledInit = SSD1306_Init(&oledData);
 	
-	GameContext ctx;
-	ctx.playerBulletVerticalStep = PLAYER_BULLET_UP_STEP;
-	ctx.playerHorizontalStep = 0;
-	ctx.enemyHorizontalStep = 0;
-	ctx.enemyHorizontalDirection = 1;
-	ctx.enemyVerticalStep = 0;
+	Rect2D enemiesRect;
 	// TODO: consider vertical spacing between enemies
 	Rect2D_Init(
-		&ctx.enemiesRect, 
+		&enemiesRect,
 		30, 
 		5, 
 		(ENEMY_WIDTH * ENEMY_COLUMNS) + (uint16_t)(ENEMY_HORIZ_SPACING * (ENEMY_COLUMNS - 1)), 
 		ENEMY_HEIGHT);
-	ctx.hasEnemyHitBoundary = false;
+	
+	Rect2D gameArea;
 	Rect2D_Init(
-		&ctx.gameArea, 
+		&gameArea, 
 		SCREEN_MIN_X, 
 		SCREEN_MIN_Y,
 		(uint16_t)(SCREEN_MAX_X - SCREEN_MIN_X),
 		(uint16_t)(32 - SCREEN_MIN_Y)); // TODO: extract constant
-	ctx.spawnPlayerBullet = false;
+	
+	GameContext ctx;
+	GameContext_Init(&ctx, 1U, PLAYER_BULLET_UP_STEP, &enemiesRect, &gameArea);
 	
 	GameObject player;
 	Rect2D_Init(&player.rect, 56, 24, PLAYER_WIDTH, PLAYER_HEIGHT);
