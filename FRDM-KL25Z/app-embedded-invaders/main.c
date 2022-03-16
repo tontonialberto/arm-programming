@@ -66,30 +66,30 @@ int main() {
 	bullet.active = false;
 	bullet.ctx = &ctx;
 	
-	Enemy enemy;
-	enemy.index = 0;
-	Rect2D_Init(&enemy.go.rect, ctx.enemiesRect.x, ctx.enemiesRect.y, ENEMY_WIDTH, ENEMY_HEIGHT);
-	enemy.go.ctx = &ctx;
+	#define N_ENEMIES (uint16_t)3U
+	Enemy enemies[N_ENEMIES];
 	
-	Enemy otherEnemy;
-	otherEnemy.index = 1;
+	enemies[0].index = 0;
+	Rect2D_Init(&enemies[0].go.rect, ctx.enemiesRect.x, ctx.enemiesRect.y, ENEMY_WIDTH, ENEMY_HEIGHT);
+	enemies[0].go.ctx = &ctx;
+	
+	enemies[1].index = 1;
 	Rect2D_Init(
-		&otherEnemy.go.rect, 
+		&enemies[1].go.rect, 
 		ctx.enemiesRect.x + (int16_t)ENEMY_WIDTH + ENEMY_HORIZ_SPACING, 
 		ctx.enemiesRect.y, 
 		ENEMY_WIDTH, 
 		ENEMY_HEIGHT);
-	otherEnemy.go.ctx = &ctx;
+	enemies[1].go.ctx = &ctx;
 	
-	Enemy yetAnotherEnemy;
-	yetAnotherEnemy.index = 2;
+	enemies[2].index = 2;
 	Rect2D_Init(
-		&yetAnotherEnemy.go.rect, 
+		&enemies[2].go.rect, 
 		ctx.enemiesRect.x,
 		ctx.enemiesRect.y + (int16_t)ENEMY_HEIGHT + ENEMY_VERTICAL_SPACING,
 		ENEMY_WIDTH,
 		ENEMY_HEIGHT);
-	yetAnotherEnemy.go.ctx = &ctx;
+	enemies[2].go.ctx = &ctx;
 	
 	PeriodicEvent evtEnemyMove;
 	evtEnemyMove.timeoutMs = EVT_ENEMY_MOVE_PERIOD_MS;
@@ -156,9 +156,9 @@ int main() {
 		}
 		
 		// Enemies move
-		Enemy_Move(&enemy);
-		Enemy_Move(&otherEnemy);
-		Enemy_Move(&yetAnotherEnemy);
+		for(uint16_t i=0; i<N_ENEMIES; i++) {
+			Enemy_Move(&enemies[i]);
+		}
 		
 		// Invert enemies direction and move them down
 		// if any of them has hit a boundary
@@ -190,26 +190,14 @@ int main() {
 			(uint8_t)player.rect.height);
 		
 		// Enemy render
-		SSD1306_WriteRectangle(
+		for(uint16_t i=0; i<N_ENEMIES; i++) {
+			SSD1306_WriteRectangle(
 			&oledData,
-			(uint8_t)enemy.go.rect.x,
-			(uint8_t)enemy.go.rect.y,
-			(uint8_t)enemy.go.rect.width,
-			(uint8_t)enemy.go.rect.height);
-		
-		SSD1306_WriteRectangle(
-			&oledData,
-			(uint8_t)otherEnemy.go.rect.x,
-			(uint8_t)otherEnemy.go.rect.y,
-			(uint8_t)otherEnemy.go.rect.width,
-			(uint8_t)otherEnemy.go.rect.height);
-			
-		SSD1306_WriteRectangle(
-			&oledData,
-			(uint8_t)yetAnotherEnemy.go.rect.x,
-			(uint8_t)yetAnotherEnemy.go.rect.y,
-			(uint8_t)yetAnotherEnemy.go.rect.width,
-			(uint8_t)yetAnotherEnemy.go.rect.height);
+			(uint8_t)enemies[i].go.rect.x,
+			(uint8_t)enemies[i].go.rect.y,
+			(uint8_t)enemies[i].go.rect.width,
+			(uint8_t)enemies[i].go.rect.height);
+		}
 		
 		SSD1306_Update(&oledData);
 	}
