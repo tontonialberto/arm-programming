@@ -37,27 +37,31 @@ int main() {
 	oledInit = SSD1306_Init(&oledData);
 	
 	Rect2D enemiesRect;
-	// TODO: consider vertical spacing between enemies
 	Rect2D_Init(
 		&enemiesRect,
 		ENEMIES_RECT_INITIAL_X, 
 		ENEMIES_RECT_INITIAL_Y,
 		ENEMIES_RECT_WIDTH,
-		ENEMY_HEIGHT);
+		ENEMY_HEIGHT); // TODO: consider vertical spacing between enemies
 	
 	Rect2D gameArea;
 	Rect2D_Init(
 		&gameArea, 
 		SCREEN_MIN_X, 
 		SCREEN_MIN_Y,
-		(uint16_t)(SCREEN_MAX_X - SCREEN_MIN_X),
-		(uint16_t)(32 - SCREEN_MIN_Y)); // TODO: extract constant
+		SCREEN_WIDTH,
+		SCREEN_HEIGHT);
 	
 	GameContext ctx;
 	GameContext_Init(&ctx, 1U, PLAYER_BULLET_UP_STEP, &enemiesRect, &gameArea);
 	
 	GameObject player;
-	Rect2D_Init(&player.rect, 56, 24, PLAYER_WIDTH, PLAYER_HEIGHT);
+	Rect2D_Init(
+		&player.rect, 
+		PLAYER_INITIAL_X, 
+		PLAYER_INITIAL_Y, 
+		PLAYER_WIDTH, 
+		PLAYER_HEIGHT);
 	player.ctx = &ctx;
 	
 	GameObject bullet;
@@ -192,11 +196,11 @@ int main() {
 		// Enemy render
 		for(uint16_t i=0; i<N_ENEMIES; i++) {
 			SSD1306_WriteRectangle(
-			&oledData,
-			(uint8_t)enemies[i].go.rect.x,
-			(uint8_t)enemies[i].go.rect.y,
-			(uint8_t)enemies[i].go.rect.width,
-			(uint8_t)enemies[i].go.rect.height);
+				&oledData,
+				(uint8_t)enemies[i].go.rect.x,
+				(uint8_t)enemies[i].go.rect.y,
+				(uint8_t)enemies[i].go.rect.width,
+				(uint8_t)enemies[i].go.rect.height);
 		}
 		
 		SSD1306_Update(&oledData);

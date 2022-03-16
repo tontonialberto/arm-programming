@@ -12,6 +12,10 @@ const uint16_t PLAYER_WIDTH = 6;
 
 const uint16_t PLAYER_HEIGHT = 6;
 
+const int16_t PLAYER_INITIAL_X = 56;
+
+const int16_t PLAYER_INITIAL_Y = 24;
+
 const uint16_t PLAYER_BULLET_WIDTH = 2;
 
 const uint16_t PLAYER_BULLET_HEIGHT = 3;

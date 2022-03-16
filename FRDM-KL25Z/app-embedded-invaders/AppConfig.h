@@ -11,4 +11,8 @@ extern const int16_t SCREEN_MAX_X;
 
 extern const int16_t SCREEN_MIN_Y;
 
+extern const uint16_t SCREEN_WIDTH;
+
+extern const uint16_t SCREEN_HEIGHT;
+
 #endif
