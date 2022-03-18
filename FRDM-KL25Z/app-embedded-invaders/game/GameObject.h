@@ -43,9 +43,6 @@ struct GameContext {
 };
 
 struct GameObject {
-	MoveFn move;
-	RenderFn render;
-	
 	Rect2D rect;
 	GameContext *ctx;
 	bool active;
