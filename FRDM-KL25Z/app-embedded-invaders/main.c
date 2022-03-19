@@ -64,30 +64,21 @@ int main() {
 		enemies,
 		N_ENEMIES);
 	
-	enemies[0].index = 0;
-	Rect2D_Init(&enemies[0].go.rect, ctx.enemiesRect.x, ctx.enemiesRect.y, ENEMY_WIDTH, ENEMY_HEIGHT);
-	enemies[0].go.ctx = &ctx;
-	enemies[0].go.active = true;
-	
-	enemies[1].index = 1;
-	Rect2D_Init(
-		&enemies[1].go.rect, 
-		ctx.enemiesRect.x + (int16_t)ENEMY_WIDTH + ENEMY_HORIZ_SPACING, 
-		ctx.enemiesRect.y, 
-		ENEMY_WIDTH, 
-		ENEMY_HEIGHT);
-	enemies[1].go.ctx = &ctx;
-	enemies[1].go.active = true;
-	
-	enemies[2].index = 2;
-	Rect2D_Init(
-		&enemies[2].go.rect, 
-		ctx.enemiesRect.x,
-		ctx.enemiesRect.y + (int16_t)ENEMY_HEIGHT + ENEMY_VERTICAL_SPACING,
-		ENEMY_WIDTH,
-		ENEMY_HEIGHT);
-	enemies[2].go.ctx = &ctx;
-	enemies[2].go.active = true;
+	// Enemies init
+	for(uint16_t i=0; i<ctx.nEnemies; i++) {
+		Enemy *enemy = &enemies[i];
+		Rect2D *enemyRect = &enemy->go.rect;
+		
+		enemy->index = (int16_t)i;
+		Rect2D_Init(
+			enemyRect,
+			0, 0,
+			ENEMY_WIDTH,
+			ENEMY_HEIGHT);
+		Enemy_Move(enemy);
+		enemy->go.ctx = &ctx;
+		enemy->go.active = true;
+	}
 	
 	GameObject player;
 	Rect2D_Init(

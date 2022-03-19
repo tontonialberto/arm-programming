@@ -10,25 +10,25 @@ const int16_t ENEMY_DOWN_STEP = 5;
 
 const uint16_t PLAYER_WIDTH = 6;
 
-const uint16_t PLAYER_HEIGHT = 6;
+const uint16_t PLAYER_HEIGHT = 3;
 
 const int16_t PLAYER_INITIAL_X = 56;
 
-const int16_t PLAYER_INITIAL_Y = 24;
+const int16_t PLAYER_INITIAL_Y = 28;
 
-const uint16_t PLAYER_BULLET_WIDTH = 2;
+const uint16_t PLAYER_BULLET_WIDTH = 1;
 
-const uint16_t PLAYER_BULLET_HEIGHT = 3;
+const uint16_t PLAYER_BULLET_HEIGHT = 2;
 
 const uint16_t ENEMY_WIDTH = 8;
 
-const uint16_t ENEMY_HEIGHT = 3;
+const uint16_t ENEMY_HEIGHT = 2;
 
-const uint16_t ENEMY_COLUMNS = 2;
+const uint16_t ENEMY_COLUMNS = 5;
 
-const int16_t ENEMY_HORIZ_SPACING = 5;
+const int16_t ENEMY_HORIZ_SPACING = 6 ;
 
-const int16_t ENEMY_VERTICAL_SPACING = 2;
+const int16_t ENEMY_VERTICAL_SPACING = 5;
 
 const int16_t ENEMIES_RECT_INITIAL_X = 30;
 

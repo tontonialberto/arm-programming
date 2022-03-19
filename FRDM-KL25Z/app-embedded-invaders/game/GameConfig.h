@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define N_ENEMIES (uint16_t)3U
+#define N_ENEMIES (uint16_t)10U
 
 extern const int16_t PLAYER_RIGHT_STEP;
 
