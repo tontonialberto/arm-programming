@@ -52,26 +52,17 @@ int main() {
 		SCREEN_WIDTH,
 		SCREEN_HEIGHT);
 	
-	GameContext ctx;
-	GameContext_Init(&ctx, 1U, PLAYER_BULLET_UP_STEP, &enemiesRect, &gameArea);
-	
-	GameObject player;
-	Rect2D_Init(
-		&player.rect, 
-		PLAYER_INITIAL_X, 
-		PLAYER_INITIAL_Y, 
-		PLAYER_WIDTH, 
-		PLAYER_HEIGHT);
-	player.ctx = &ctx;
-	
-	GameObject bullet;
-	bullet.rect.width = PLAYER_BULLET_WIDTH;
-	bullet.rect.height = PLAYER_BULLET_HEIGHT;
-	bullet.active = false;
-	bullet.ctx = &ctx;
-	
-	#define N_ENEMIES (uint16_t)3U
 	Enemy enemies[N_ENEMIES];
+	
+	GameContext ctx;
+	GameContext_Init(
+		&ctx, 
+		1U, 
+		PLAYER_BULLET_UP_STEP, 
+		&enemiesRect, 
+		&gameArea,
+		enemies,
+		N_ENEMIES);
 	
 	enemies[0].index = 0;
 	Rect2D_Init(&enemies[0].go.rect, ctx.enemiesRect.x, ctx.enemiesRect.y, ENEMY_WIDTH, ENEMY_HEIGHT);
@@ -98,8 +89,20 @@ int main() {
 	enemies[2].go.ctx = &ctx;
 	enemies[2].go.active = true;
 	
-	ctx.nEnemies = N_ENEMIES;
-	ctx.enemies = enemies;
+	GameObject player;
+	Rect2D_Init(
+		&player.rect, 
+		PLAYER_INITIAL_X, 
+		PLAYER_INITIAL_Y, 
+		PLAYER_WIDTH, 
+		PLAYER_HEIGHT);
+	player.ctx = &ctx;
+	
+	GameObject bullet;
+	bullet.rect.width = PLAYER_BULLET_WIDTH;
+	bullet.rect.height = PLAYER_BULLET_HEIGHT;
+	bullet.active = false;
+	bullet.ctx = &ctx;
 	
 	PeriodicEvent evtEnemyMove;
 	evtEnemyMove.timeoutMs = EVT_ENEMY_MOVE_PERIOD_MS;

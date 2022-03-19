@@ -65,7 +65,9 @@ void GameContext_Init(
 	int8_t enemyHorizontalDirection,
 	int16_t playerBulletVerticalStep,
 	const Rect2D *enemiesRect,
-	const Rect2D *gameArea);
+	const Rect2D *gameArea,
+	Enemy *enemies,
+	uint16_t nEnemies);
 	
 bool Rect2D_Overlaps(const Rect2D a, const Rect2D b);
 
@@ -90,7 +92,9 @@ void GameContext_Init(
 		int8_t enemyHorizontalDirection,
 		int16_t playerBulletVerticalStep,
 		const Rect2D *enemiesRect,
-		const Rect2D *gameArea) {
+		const Rect2D *gameArea,
+		Enemy *enemies,
+		uint16_t nEnemies) {
 	
 	if(ctx == NULL || enemiesRect == NULL || gameArea == NULL)
 		return;
@@ -99,8 +103,10 @@ void GameContext_Init(
 	ctx->enemyHorizontalDirection = enemyHorizontalDirection;
 	ctx->enemyHorizontalStep = 0;
 	ctx->enemyVerticalStep = 0;
+	ctx->enemies = enemies;
 	ctx->gameArea = *gameArea;
 	ctx->hasEnemyHitBoundary = false;
+	ctx->nEnemies = nEnemies;
 	ctx->playerBulletVerticalStep = playerBulletVerticalStep;
 	ctx->playerHorizontalStep = 0;
 	ctx->score = 0;
