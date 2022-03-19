@@ -224,7 +224,8 @@ int main() {
 			(uint8_t)player.rect.x, 
 			(uint8_t)player.rect.y, 
 			(uint8_t)player.rect.width, 
-			(uint8_t)player.rect.height);
+			(uint8_t)player.rect.height
+		);
 		
 		// Enemy render
 		for(uint16_t i=0; i<N_ENEMIES; i++) {
@@ -234,15 +235,28 @@ int main() {
 					(uint8_t)enemies[i].go.rect.x,
 					(uint8_t)enemies[i].go.rect.y,
 					(uint8_t)enemies[i].go.rect.width,
-					(uint8_t)enemies[i].go.rect.height);
+					(uint8_t)enemies[i].go.rect.height
+				);
 			}
+		}
+		
+		// Enemy bullet render
+		if(enemyBullet.active) {
+			SSD1306_WriteRectangle(
+				&oledData,
+				(uint8_t)enemyBullet.rect.x, 
+				(uint8_t)enemyBullet.rect.y, 
+				(uint8_t)enemyBullet.rect.width, 
+				(uint8_t)enemyBullet.rect.height
+			);
 		}
 		
 		// Score render
 		SSD1306_WriteUnsignedInt(
 			&oledData,
 			(int32_t)ctx.score,
-			100, 0);
+			100, 0
+		);
 		
 		SSD1306_Update(&oledData);
 	}
