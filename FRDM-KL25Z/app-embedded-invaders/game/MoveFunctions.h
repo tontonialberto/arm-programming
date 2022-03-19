@@ -31,9 +31,9 @@ void PlayerBullet_Move(GameObject *bullet) {
 	
 	GameContext *ctx = bullet->ctx;
 	
-	if(bullet->active) {
-		bullet->rect.y += ctx->playerBulletVerticalStep;
-	}
+	bullet->rect.y += ctx->playerBulletVerticalStep;
+	
+	// Boundary check
 	if(bullet->rect.y < ctx->gameArea.y) {
 		bullet->active = false;
 	}
