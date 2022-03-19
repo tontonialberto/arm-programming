@@ -95,6 +95,12 @@ int main() {
 	bullet.active = false;
 	bullet.ctx = &ctx;
 	
+	GameObject enemyBullet;
+	enemyBullet.rect.width = 1;
+	enemyBullet.rect.height = 1;
+	enemyBullet.active = false;
+	enemyBullet.ctx = &ctx;
+	
 	PeriodicEvent evtEnemyMove;
 	evtEnemyMove.timeoutMs = EVT_ENEMY_MOVE_PERIOD_MS;
 	evtEnemyMove.lastTimeoutMs = 0;
@@ -145,11 +151,17 @@ int main() {
 			// Do nothing.
 		}
 		
-		// Spawn bullet if needed
+		// Spawn player bullet if needed
 		if(ctx.spawnPlayerBullet) {
 			ctx.spawnPlayerBullet = false;
 			bullet.active = true;
 			SetSpawnPosition_PlayerBullet(&bullet, &player);
+		}
+		
+		// Spawn enemy bullet if needed
+		if(ctx.spawnEnemyBullet) {
+			ctx.spawnEnemyBullet = false;
+			enemyBullet.active = true;
 		}
 		
 		// Player move
