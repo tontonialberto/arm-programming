@@ -195,6 +195,11 @@ int main() {
 		// Enemy bullet move
 		if(enemyBullet.active) {
 			enemyBullet.rect.y += ctx.enemyBulletVerticalStep;
+			
+			// Boundary check
+			if(enemyBullet.rect.y + enemyBullet.rect.height > gameArea.y + gameArea.height) {
+				enemyBullet.active = false;
+			}
 		}
 		
 		// Invert enemies direction and move them down
