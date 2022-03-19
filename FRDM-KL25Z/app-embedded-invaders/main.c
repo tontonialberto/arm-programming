@@ -57,8 +57,9 @@ int main() {
 	GameContext ctx;
 	GameContext_Init(
 		&ctx, 
-		1U, 
-		PLAYER_BULLET_UP_STEP, 
+		1U, // TODO: extract constant
+		PLAYER_BULLET_UP_STEP,
+		ENEMY_BULLET_DOWN_STEP,
 		&enemiesRect, 
 		&gameArea,
 		enemies,
@@ -89,15 +90,15 @@ int main() {
 		PLAYER_HEIGHT);
 	player.ctx = &ctx;
 	
-	GameObject bullet;
-	bullet.rect.width = PLAYER_BULLET_WIDTH;
-	bullet.rect.height = PLAYER_BULLET_HEIGHT;
-	bullet.active = false;
-	bullet.ctx = &ctx;
+	GameObject playerBullet;
+	playerBullet.rect.width = PLAYER_BULLET_WIDTH;
+	playerBullet.rect.height = PLAYER_BULLET_HEIGHT;
+	playerBullet.active = false;
+	playerBullet.ctx = &ctx;
 	
 	GameObject enemyBullet;
-	enemyBullet.rect.width = 1;
-	enemyBullet.rect.height = 1;
+	enemyBullet.rect.width = ENEMY_BULLET_WIDTH;
+	enemyBullet.rect.height = ENEMY_BULLET_HEIGHT;
 	enemyBullet.active = false;
 	enemyBullet.ctx = &ctx;
 	
@@ -154,14 +155,18 @@ int main() {
 		// Spawn player bullet if needed
 		if(ctx.spawnPlayerBullet) {
 			ctx.spawnPlayerBullet = false;
-			bullet.active = true;
-			SetSpawnPosition_PlayerBullet(&bullet, &player);
+			playerBullet.active = true;
+			SetSpawnPosition_PlayerBullet(&playerBullet, &player);
 		}
 		
 		// Spawn enemy bullet if needed
 		if(ctx.spawnEnemyBullet) {
 			ctx.spawnEnemyBullet = false;
 			enemyBullet.active = true;
+			
+			// TODO: set the correct spawn position
+			enemyBullet.rect.x = 0;
+			enemyBullet.rect.y = 0;
 		}
 		
 		// Player move
@@ -169,8 +174,8 @@ int main() {
 		RestoreInsideBoundsHoriz(&player.rect, &ctx.gameArea);
 		
 		// Player bullet move
-		if(bullet.active) {
-			PlayerBullet_Move(&bullet);
+		if(playerBullet.active) {
+			PlayerBullet_Move(&playerBullet);
 		}
 		
 		// Enemies rect move
@@ -187,6 +192,11 @@ int main() {
 			}
 		}
 		
+		// Enemy bullet move
+		if(enemyBullet.active) {
+			enemyBullet.rect.y += ctx.enemyBulletVerticalStep;
+		}
+		
 		// Invert enemies direction and move them down
 		// if any of them has hit a boundary
 		if(ctx.hasEnemyHitBoundary) {
@@ -199,13 +209,13 @@ int main() {
 		}
 		
 		// Player bullet render
-		if(bullet.active) {
+		if(playerBullet.active) {
 			SSD1306_WriteRectangle(
 				&oledData, 
-				(uint8_t)bullet.rect.x, 
-				(uint8_t)bullet.rect.y, 
-				(uint8_t)bullet.rect.width, 
-				(uint8_t)bullet.rect.height);
+				(uint8_t)playerBullet.rect.x, 
+				(uint8_t)playerBullet.rect.y, 
+				(uint8_t)playerBullet.rect.width, 
+				(uint8_t)playerBullet.rect.height);
 		}
 		
 		// Player render

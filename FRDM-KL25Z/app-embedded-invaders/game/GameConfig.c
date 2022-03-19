@@ -8,6 +8,8 @@ const int16_t ENEMY_RIGHT_STEP = 10;
 
 const int16_t ENEMY_DOWN_STEP = 5;
 
+const int16_t ENEMY_BULLET_DOWN_STEP = +2;
+
 const uint16_t PLAYER_WIDTH = 6;
 
 const uint16_t PLAYER_HEIGHT = 3;
@@ -23,6 +25,10 @@ const uint16_t PLAYER_BULLET_HEIGHT = 2;
 const uint16_t ENEMY_WIDTH = 8;
 
 const uint16_t ENEMY_HEIGHT = 2;
+
+const uint16_t ENEMY_BULLET_WIDTH = 1;
+
+const uint16_t ENEMY_BULLET_HEIGHT = 1;
 
 const uint16_t ENEMY_COLUMNS = 5;
 

@@ -41,6 +41,7 @@ struct GameContext {
 	Rect2D gameArea;
 	bool spawnEnemyBullet;
 	bool spawnPlayerBullet;
+	int16_t enemyBulletVerticalStep;
 };
 
 struct GameObject {
@@ -65,6 +66,7 @@ void GameContext_Init(
 	GameContext *ctx,
 	int8_t enemyHorizontalDirection,
 	int16_t playerBulletVerticalStep,
+	int16_t enemyBulletVerticalStep,
 	const Rect2D *enemiesRect,
 	const Rect2D *gameArea,
 	Enemy *enemies,
@@ -92,6 +94,7 @@ void GameContext_Init(
 		GameContext *ctx,
 		int8_t enemyHorizontalDirection,
 		int16_t playerBulletVerticalStep,
+		int16_t enemyBulletVerticalStep,
 		const Rect2D *enemiesRect,
 		const Rect2D *gameArea,
 		Enemy *enemies,
@@ -101,6 +104,7 @@ void GameContext_Init(
 		return;
 			
 	ctx->enemiesRect = *enemiesRect;
+	ctx->enemyBulletVerticalStep = enemyBulletVerticalStep;
 	ctx->enemyHorizontalDirection = enemyHorizontalDirection;
 	ctx->enemyHorizontalStep = 0;
 	ctx->enemyVerticalStep = 0;
