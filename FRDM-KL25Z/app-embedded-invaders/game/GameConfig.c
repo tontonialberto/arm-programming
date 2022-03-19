@@ -39,4 +39,6 @@ const uint16_t ENEMIES_RECT_WIDTH =
 
 const uint32_t EVT_ENEMY_MOVE_PERIOD_MS = 1000;
 
+const uint32_t EVT_SPAWN_ENEMY_BULLET_PERIOD_MS = 2000;
+
 const uint32_t SCORE_PER_ENEMY = 50;

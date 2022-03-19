@@ -43,6 +43,8 @@ extern const uint16_t ENEMIES_RECT_WIDTH;
 
 extern const uint32_t EVT_ENEMY_MOVE_PERIOD_MS;
 
+extern const uint32_t EVT_SPAWN_ENEMY_BULLET_PERIOD_MS;
+
 extern const uint32_t SCORE_PER_ENEMY;
 
 #endif

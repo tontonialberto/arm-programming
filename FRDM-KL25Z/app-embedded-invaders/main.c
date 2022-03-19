@@ -99,6 +99,10 @@ int main() {
 	evtEnemyMove.timeoutMs = EVT_ENEMY_MOVE_PERIOD_MS;
 	evtEnemyMove.lastTimeoutMs = 0;
 	
+	PeriodicEvent evtSpawnEnemyBullet;
+	evtSpawnEnemyBullet.timeoutMs = EVT_SPAWN_ENEMY_BULLET_PERIOD_MS;
+	evtSpawnEnemyBullet.lastTimeoutMs = 0;
+	
 	delayMs(100);
 	
 	while(1) {
@@ -131,6 +135,14 @@ int main() {
 			// Execute the operation that must happen when
 			// the event is not triggered.
 			ctx.enemyHorizontalStep = 0;
+		}
+		
+		if(evtSpawnEnemyBullet.timeoutMs <= Timer_GetElapsedMsSince(evtSpawnEnemyBullet.lastTimeoutMs)) {
+			ctx.spawnEnemyBullet = true;
+			evtSpawnEnemyBullet.lastTimeoutMs = Timer_GetElapsedMs();
+		}
+		else {
+			// Do nothing.
 		}
 		
 		// Spawn bullet if needed
