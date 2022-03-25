@@ -200,6 +200,11 @@ int main() {
 			if(enemyBullet.rect.y + enemyBullet.rect.height > gameArea.y + gameArea.height) {
 				enemyBullet.active = false;
 			}
+			
+			// Check collision with player
+			if(Rect2D_Overlaps(enemyBullet.rect, player.rect)) {
+				enemyBullet.active = false;
+			}
 		}
 		
 		// Invert enemies direction and move them down
