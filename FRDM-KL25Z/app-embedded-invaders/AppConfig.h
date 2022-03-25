@@ -15,4 +15,12 @@ extern const uint16_t SCREEN_WIDTH;
 
 extern const uint16_t SCREEN_HEIGHT;
 
+extern const uint8_t SCORE_DISPLAY_X;
+
+extern const uint8_t SCORE_DISPLAY_Y;
+
+extern const uint8_t PLAYER_HEALTH_DISPLAY_X;
+
+extern const uint8_t PLAYER_HEALTH_DISPLAY_Y;
+
 #endif

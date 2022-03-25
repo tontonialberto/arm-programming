@@ -266,7 +266,16 @@ int main() {
 		SSD1306_WriteUnsignedInt(
 			&oledData,
 			(int32_t)ctx.score,
-			100, 0
+			SCORE_DISPLAY_X,
+			SCORE_DISPLAY_Y
+		);
+		
+		// Player's health render
+		SSD1306_WriteUnsignedInt(
+			&oledData,
+			(int32_t)ctx.playerHealth,
+			PLAYER_HEALTH_DISPLAY_X,
+			PLAYER_HEALTH_DISPLAY_Y
 		);
 		
 		SSD1306_Update(&oledData);
