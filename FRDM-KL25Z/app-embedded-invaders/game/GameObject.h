@@ -42,6 +42,7 @@ struct GameContext {
 	bool spawnEnemyBullet;
 	bool spawnPlayerBullet;
 	int16_t enemyBulletVerticalStep;
+	uint16_t playerHealth;
 };
 
 struct GameObject {
@@ -70,7 +71,8 @@ void GameContext_Init(
 	const Rect2D *enemiesRect,
 	const Rect2D *gameArea,
 	Enemy *enemies,
-	uint16_t nEnemies);
+	uint16_t nEnemies,
+	uint16_t playerHealth);
 	
 bool Rect2D_Overlaps(const Rect2D a, const Rect2D b);
 
@@ -98,7 +100,8 @@ void GameContext_Init(
 		const Rect2D *enemiesRect,
 		const Rect2D *gameArea,
 		Enemy *enemies,
-		uint16_t nEnemies) {
+		uint16_t nEnemies,
+		uint16_t playerHealth) {
 	
 	if(ctx == NULL || enemiesRect == NULL || gameArea == NULL)
 		return;
@@ -113,6 +116,7 @@ void GameContext_Init(
 	ctx->hasEnemyHitBoundary = false;
 	ctx->nEnemies = nEnemies;
 	ctx->playerBulletVerticalStep = playerBulletVerticalStep;
+	ctx->playerHealth = playerHealth;
 	ctx->playerHorizontalStep = 0;
 	ctx->score = 0;
 	ctx->spawnEnemyBullet = false;

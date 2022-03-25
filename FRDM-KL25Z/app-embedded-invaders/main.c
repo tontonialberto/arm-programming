@@ -63,7 +63,8 @@ int main() {
 		&enemiesRect, 
 		&gameArea,
 		enemies,
-		N_ENEMIES);
+		N_ENEMIES,
+		PLAYER_INITIAL_HEALTH);
 	
 	// Enemies init
 	for(uint16_t i=0; i<ctx.nEnemies; i++) {

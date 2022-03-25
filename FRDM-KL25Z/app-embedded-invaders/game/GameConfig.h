@@ -23,6 +23,8 @@ extern const int16_t PLAYER_INITIAL_X;
 
 extern const int16_t PLAYER_INITIAL_Y;
 
+extern const uint16_t PLAYER_INITIAL_HEALTH;
+
 extern const uint16_t PLAYER_BULLET_WIDTH;
 
 extern const uint16_t PLAYER_BULLET_HEIGHT;

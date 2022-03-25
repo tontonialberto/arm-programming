@@ -18,6 +18,8 @@ const int16_t PLAYER_INITIAL_X = 56;
 
 const int16_t PLAYER_INITIAL_Y = 28;
 
+const uint16_t PLAYER_INITIAL_HEALTH = 50;
+
 const uint16_t PLAYER_BULLET_WIDTH = 1;
 
 const uint16_t PLAYER_BULLET_HEIGHT = 2;
