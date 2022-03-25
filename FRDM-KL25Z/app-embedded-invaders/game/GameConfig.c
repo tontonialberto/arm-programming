@@ -32,6 +32,8 @@ const uint16_t ENEMY_BULLET_WIDTH = 1;
 
 const uint16_t ENEMY_BULLET_HEIGHT = 1;
 
+const uint16_t ENEMY_BULLET_DAMAGE = 10;
+
 const uint16_t ENEMY_COLUMNS = 5;
 
 const int16_t ENEMY_HORIZ_SPACING = 6 ;

@@ -205,6 +205,7 @@ int main() {
 			// Check collision with player
 			if(Rect2D_Overlaps(enemyBullet.rect, player.rect)) {
 				enemyBullet.active = false;
+				ctx.playerHealth -= ENEMY_BULLET_DAMAGE;
 			}
 		}
 		

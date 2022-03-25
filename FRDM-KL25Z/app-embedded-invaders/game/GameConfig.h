@@ -37,6 +37,8 @@ extern const uint16_t ENEMY_BULLET_WIDTH;
 
 extern const uint16_t ENEMY_BULLET_HEIGHT;
 
+extern const uint16_t ENEMY_BULLET_DAMAGE;
+
 extern const uint16_t ENEMY_COLUMNS;
 
 extern const int16_t ENEMY_HORIZ_SPACING;
