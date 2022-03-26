@@ -384,16 +384,6 @@
           <GroupName>Application</GroupName>
           <Files>
             <File>
-              <FileName>hw_init.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hw_init.c</FilePath>
-            </File>
-            <File>
-              <FileName>hw_init.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\hw_init.h</FilePath>
-            </File>
-            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
@@ -407,26 +397,6 @@
               <FileName>util.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\util.h</FilePath>
-            </File>
-            <File>
-              <FileName>delay.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\libs\delay.h</FilePath>
-            </File>
-            <File>
-              <FileName>ISR.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ISR.h</FilePath>
-            </File>
-            <File>
-              <FileName>ISR.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ISR.c</FilePath>
-            </File>
-            <File>
-              <FileName>PinConfig.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\PinConfig.h</FilePath>
             </File>
             <File>
               <FileName>AppConfig.h</FileName>
@@ -527,6 +497,41 @@
               <FileName>OnCollisionFunctions.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\game\OnCollisionFunctions.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware</GroupName>
+          <Files>
+            <File>
+              <FileName>PinConfig.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\PinConfig.h</FilePath>
+            </File>
+            <File>
+              <FileName>delay.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\libs\delay.h</FilePath>
+            </File>
+            <File>
+              <FileName>hw_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\hw_init.c</FilePath>
+            </File>
+            <File>
+              <FileName>hw_init.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\hw_init.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISR.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ISR.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISR.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ISR.c</FilePath>
             </File>
           </Files>
         </Group>

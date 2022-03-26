@@ -5,19 +5,15 @@
 #include "PinConfig.h"
 
 volatile int32_t analogY = 0;
-static volatile double tmp = 0;
 
 void ADC0_IRQHandler(void) {
 	uint16_t adcVal = (uint16_t)ADC0->R[0];
-	int32_t currAnalogY = 0;
 	
 	// Convert to value in interval [-0.5, +0.5]
-	tmp = (((double)adcVal) / 65536.0) - 0.525;
+	double tmp = (((double)adcVal) / 65536.0) - 0.525;
 	
 	// Convert to value in interval [-100, +100]
-	currAnalogY = (int32_t)(2 * 100 * tmp);
-	
-	analogY = currAnalogY;
+	analogY = (int32_t)(2 * 100 * tmp);
 	
 	// Input check: put the value back to its bounds
 	if(analogY < -100)

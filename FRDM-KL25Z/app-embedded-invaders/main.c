@@ -171,7 +171,7 @@ int main() {
 				const int16_t xShooter = shooter->go.rect.x;
 				const int16_t yShooter = shooter->go.rect.y;
 			
-				// Set spawn position near to the shooter
+				// Set spawn position close to the shooter
 				enemyBullet.rect.x = xShooter + (shooter->go.rect.width / 2);
 				enemyBullet.rect.y = yShooter;
 			}
