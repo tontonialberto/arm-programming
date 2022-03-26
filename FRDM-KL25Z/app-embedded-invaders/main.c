@@ -1,4 +1,5 @@
 #include <MKL25Z4.h>
+#include <stdlib.h>
 #include "SSD1306/SSD1306.h"
 #include "I2C_Master.h"
 #include "delay.h"
@@ -165,9 +166,48 @@ int main() {
 			ctx.spawnEnemyBullet = false;
 			enemyBullet.active = true;
 			
-			// TODO: set the correct spawn position
-			enemyBullet.rect.x = 0;
-			enemyBullet.rect.y = 0;
+			// Find the position of the shooter enemy:
+			// The shooter is the one with maximum y pos,
+			// and the closest x pos with respect to the player.
+			int16_t spawnX = 0; 
+			int16_t spawnY = 0;
+			
+			// Find, among active enemies,
+			// the x pos of the closest one to the player.
+			uint16_t xMinDistanceFromPlayer = 65535;
+			for(uint16_t i=0; i<ctx.nEnemies; i++) {
+				if(ctx.enemies[i].go.active) {
+						
+					int16_t xEnemy = ctx.enemies[i].go.rect.x;
+						
+					// Distance between player and the current enemy.
+					uint16_t xDistance = (uint16_t)abs(xEnemy - player.rect.x);
+					
+					if(xDistance < xMinDistanceFromPlayer) {
+						xMinDistanceFromPlayer = xDistance;
+						spawnX = xEnemy + (ctx.enemies[i].go.rect.width / 2);
+					}
+				}
+			}
+			
+			// Find, among active enemies, the one 
+			// having maximum y pos.
+			spawnY = -1; // Initialized to the minimum value.
+			for(uint16_t i=0; i<ctx.nEnemies; i++) {
+				
+				uint16_t xDistance = (uint16_t)abs(ctx.enemies[i].go.rect.x - player.rect.x);
+				
+				if(ctx.enemies[i].go.active && (xDistance == xMinDistanceFromPlayer)) {
+					int16_t yEnemy = ctx.enemies[i].go.rect.y;
+					if(spawnY < yEnemy) {
+						spawnY = yEnemy;
+					}
+				}
+			}
+			
+			// Set spawn position near to the shooter
+			enemyBullet.rect.x = spawnX;
+			enemyBullet.rect.y = spawnY;
 		}
 		
 		// Player move
