@@ -166,48 +166,15 @@ int main() {
 			ctx.spawnEnemyBullet = false;
 			enemyBullet.active = true;
 			
-			// Find the position of the shooter enemy:
-			// The shooter is the one with maximum y pos,
-			// and the closest x pos with respect to the player.
-			int16_t spawnX = 0; 
-			int16_t spawnY = 0;
+			const Enemy *const shooter = Enemy_GetNextShooter(&ctx, &player);
+			if(shooter != NULL) {
+				const int16_t xShooter = shooter->go.rect.x;
+				const int16_t yShooter = shooter->go.rect.y;
 			
-			// Find, among active enemies,
-			// the x pos of the closest one to the player.
-			uint16_t xMinDistanceFromPlayer = 65535;
-			for(uint16_t i=0; i<ctx.nEnemies; i++) {
-				if(ctx.enemies[i].go.active) {
-						
-					int16_t xEnemy = ctx.enemies[i].go.rect.x;
-						
-					// Distance between player and the current enemy.
-					uint16_t xDistance = (uint16_t)abs(xEnemy - player.rect.x);
-					
-					if(xDistance < xMinDistanceFromPlayer) {
-						xMinDistanceFromPlayer = xDistance;
-						spawnX = xEnemy + (ctx.enemies[i].go.rect.width / 2);
-					}
-				}
+				// Set spawn position near to the shooter
+				enemyBullet.rect.x = xShooter + (shooter->go.rect.width / 2);
+				enemyBullet.rect.y = yShooter;
 			}
-			
-			// Find, among active enemies, the one 
-			// having maximum y pos.
-			spawnY = -1; // Initialized to the minimum value.
-			for(uint16_t i=0; i<ctx.nEnemies; i++) {
-				
-				uint16_t xDistance = (uint16_t)abs(ctx.enemies[i].go.rect.x - player.rect.x);
-				
-				if(ctx.enemies[i].go.active && (xDistance == xMinDistanceFromPlayer)) {
-					int16_t yEnemy = ctx.enemies[i].go.rect.y;
-					if(spawnY < yEnemy) {
-						spawnY = yEnemy;
-					}
-				}
-			}
-			
-			// Set spawn position near to the shooter
-			enemyBullet.rect.x = spawnX;
-			enemyBullet.rect.y = spawnY;
 		}
 		
 		// Player move
