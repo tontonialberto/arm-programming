@@ -1,0 +1,569 @@
+
+Static Call Graph for image ./Objects/makefile-playground.axf
+
+#<CALLGRAPH># ARM Linker, 6160001: Last Updated: Thu Mar 31 22:12:48 2022
+Maximum Stack Usage =          8 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)
+Call chain for Maximum Stack Depth:
+__rt_entry_sh => __user_setup_stackheap
+
+
+Functions with no stack information
+
+ * __user_initial_stackheap
+
+
+Mutually Recursive functions
+ * NMI_Handler => NMI_Handler
+ * HardFault_Handler => HardFault_Handler
+ * SVC_Handler => SVC_Handler
+ * PendSV_Handler => PendSV_Handler
+ * SysTick_Handler => SysTick_Handler
+
+
+Function Pointers
+
+ * ADC0_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * CMP0_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * DAC0_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * DMA0_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * DMA1_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * DMA2_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * DMA3_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * DefaultISR from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(.text)
+ * FTFA_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * HardFault_Handler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * I2C0_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * I2C1_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * LLWU_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * LPTMR0_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * LVD_LVW_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * MCG_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * NMI_Handler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * PIT_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * PORTA_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * PORTD_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * PendSV_Handler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * RTC_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * RTC_Seconds_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * Reserved20_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * Reserved39_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * Reserved45_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * Reset_Handler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * SPI0_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * SPI1_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * SVC_Handler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * SysTick_Handler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * SystemInit from system_MKL25Z4.o(.text.SystemInit) referenced from startup_MKL25Z4.o(.text)
+ * TPM0_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * TPM1_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * TPM2_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * TSI0_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * UART0_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * UART1_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * UART2_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * USB0_IRQHandler from startup_MKL25Z4.o(.text) referenced from startup_MKL25Z4.o(RESET)
+ * __main from __main.o(!!!main) referenced from startup_MKL25Z4.o(.text)
+
+
+Global Symbols
+
+	__main (Thumb, 8 bytes, Stack size 0 bytes, __main.o(!!!main))
+
+		[Calls]
+
+			 * __scatterload
+			 * __rt_entry
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(.text)
+
+	__scatterload (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter))
+
+		[Called By]
+
+			 * __main
+
+	__scatterload_rt2 (Thumb, 52 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+
+		[Calls]
+
+			 * __rt_entry
+
+	__scatterload_rt2_thumb_only (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+
+	__scatterload_null (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+
+	__scatterload_copy (Thumb, 26 bytes, Stack size unknown bytes, __scatter_copy.o(!!handler_copy), UNUSED)
+
+		[Calls]
+
+			 * __scatterload_copy
+
+		[Called By]
+
+			 * __scatterload_copy
+
+	__scatterload_zeroinit (Thumb, 28 bytes, Stack size unknown bytes, __scatter_zi.o(!!handler_zi), UNUSED)
+
+	__rt_lib_init (Thumb, 0 bytes, Stack size unknown bytes, libinit.o(.ARM.Collect$$libinit$$00000000))
+
+		[Called By]
+
+			 * __rt_entry_li
+
+	__rt_lib_init_alloca_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002E))
+
+	__rt_lib_init_argv_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002C))
+
+	__rt_lib_init_atexit_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001B))
+
+	__rt_lib_init_clock_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000021))
+
+	__rt_lib_init_cpp_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000032))
+
+	__rt_lib_init_exceptions_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000030))
+
+	__rt_lib_init_fp_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000002))
+
+	__rt_lib_init_fp_trap_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001F))
+
+	__rt_lib_init_getenv_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000023))
+
+	__rt_lib_init_heap_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000A))
+
+	__rt_lib_init_lc_collate_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000011))
+
+	__rt_lib_init_lc_ctype_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000013))
+
+	__rt_lib_init_lc_monetary_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000015))
+
+	__rt_lib_init_lc_numeric_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000017))
+
+	__rt_lib_init_lc_time_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000019))
+
+	__rt_lib_init_preinit_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000004))
+
+	__rt_lib_init_rand_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000E))
+
+	__rt_lib_init_return (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000033))
+
+	__rt_lib_init_signal_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001D))
+
+	__rt_lib_init_stdio_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000025))
+
+	__rt_lib_init_user_alloc_1 (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000C))
+
+	__rt_lib_shutdown (Thumb, 0 bytes, Stack size unknown bytes, libshutdown.o(.ARM.Collect$$libshutdown$$00000000))
+
+		[Called By]
+
+			 * __rt_exit_ls
+
+	__rt_lib_shutdown_cpp_1 (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000002))
+
+	__rt_lib_shutdown_fp_trap_1 (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000007))
+
+	__rt_lib_shutdown_heap_1 (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000F))
+
+	__rt_lib_shutdown_return (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000010))
+
+	__rt_lib_shutdown_signal_1 (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000A))
+
+	__rt_lib_shutdown_stdio_1 (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000004))
+
+	__rt_lib_shutdown_user_alloc_1 (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000C))
+
+	__rt_entry (Thumb, 0 bytes, Stack size unknown bytes, __rtentry.o(.ARM.Collect$$rtentry$$00000000))
+
+		[Called By]
+
+			 * __scatterload_rt2
+			 * __main
+
+	__rt_entry_presh_1 (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000002))
+
+	__rt_entry_sh (Thumb, 0 bytes, Stack size unknown bytes, __rtentry4.o(.ARM.Collect$$rtentry$$00000004))
+
+		[Stack]
+
+			Max Depth = 8 + Unknown Stack Size
+			Call Chain = __rt_entry_sh => __user_setup_stackheap
+
+
+		[Calls]
+
+			 * __user_setup_stackheap
+
+	__rt_entry_li (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000A))
+
+		[Calls]
+
+			 * __rt_lib_init
+
+	__rt_entry_postsh_1 (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
+
+	__rt_entry_main (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
+
+		[Stack]
+
+			Max Depth = 8 + Unknown Stack Size
+			Call Chain = __rt_entry_main => exit
+
+
+		[Calls]
+
+			 * exit
+			 * main
+
+	__rt_entry_postli_1 (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000C))
+
+	__rt_exit (Thumb, 0 bytes, Stack size unknown bytes, rtexit.o(.ARM.Collect$$rtexit$$00000000))
+
+		[Called By]
+
+			 * exit
+
+	__rt_exit_ls (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000003))
+
+		[Calls]
+
+			 * __rt_lib_shutdown
+
+	__rt_exit_prels_1 (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000002))
+
+	__rt_exit_exit (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000004))
+
+		[Calls]
+
+			 * _sys_exit
+
+	Reset_Handler (Thumb, 12 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	NMI_Handler (Thumb, 2 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Calls]
+
+			 * NMI_Handler
+
+		[Called By]
+
+			 * NMI_Handler
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	HardFault_Handler (Thumb, 2 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Calls]
+
+			 * HardFault_Handler
+
+		[Called By]
+
+			 * HardFault_Handler
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	SVC_Handler (Thumb, 2 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Calls]
+
+			 * SVC_Handler
+
+		[Called By]
+
+			 * SVC_Handler
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	PendSV_Handler (Thumb, 2 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Calls]
+
+			 * PendSV_Handler
+
+		[Called By]
+
+			 * PendSV_Handler
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	SysTick_Handler (Thumb, 2 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Calls]
+
+			 * SysTick_Handler
+
+		[Called By]
+
+			 * SysTick_Handler
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	ADC0_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	CMP0_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	DAC0_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	DMA0_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	DMA1_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	DMA2_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	DMA3_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	DefaultISR (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(.text)
+
+	FTFA_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	I2C0_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	I2C1_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	LLWU_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	LPTMR0_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	LVD_LVW_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	MCG_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	PIT_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	PORTA_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	PORTD_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	RTC_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	RTC_Seconds_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	Reserved20_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	Reserved39_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	Reserved45_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	SPI0_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	SPI1_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	TPM0_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	TPM1_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	TPM2_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	TSI0_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	UART0_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	UART1_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	UART2_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	USB0_IRQHandler (Thumb, 0 bytes, Stack size 0 bytes, startup_MKL25Z4.o(.text))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(RESET)
+
+	__user_initial_stackheap (Thumb, 0 bytes, Stack size unknown bytes, startup_MKL25Z4.o(.text))
+
+		[Called By]
+
+			 * __user_setup_stackheap
+
+	__use_two_region_memory (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+
+	__rt_heap_escrow$2region (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+
+	__rt_heap_expand$2region (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+
+	__user_setup_stackheap (Thumb, 62 bytes, Stack size 8 bytes, sys_stackheap_outer.o(.text))
+
+		[Stack]
+
+			Max Depth = 8 + Unknown Stack Size
+			Call Chain = __user_setup_stackheap
+
+
+		[Calls]
+
+			 * __user_perproc_libspace
+			 * __user_initial_stackheap
+
+		[Called By]
+
+			 * __rt_entry_sh
+
+	exit (Thumb, 16 bytes, Stack size 8 bytes, exit.o(.text))
+
+		[Stack]
+
+			Max Depth = 8 + Unknown Stack Size
+			Call Chain = exit
+
+
+		[Calls]
+
+			 * __rt_exit
+			 * _call_atexit_fns (Weak Reference)
+
+		[Called By]
+
+			 * __rt_entry_main
+
+	__user_libspace (Thumb, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+
+	__user_perproc_libspace (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text))
+
+		[Called By]
+
+			 * __user_setup_stackheap
+
+	__user_perthread_libspace (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+
+	_sys_exit (Thumb, 8 bytes, Stack size 0 bytes, sys_exit.o(.text))
+
+		[Called By]
+
+			 * __rt_exit_exit
+
+	__I$use$semihosting (Thumb, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+
+	__use_no_semihosting_swi (Thumb, 2 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+
+	__semihosting_library_function (Thumb, 0 bytes, Stack size unknown bytes, indicate_semi.o(.text), UNUSED)
+
+	SystemInit (Thumb, 8 bytes, Stack size 0 bytes, system_MKL25Z4.o(.text.SystemInit))
+
+		[Address Reference Count : 1]
+			 * startup_MKL25Z4.o(.text)
+
+	main (Thumb, 92 bytes, Stack size 4 bytes, main.o(.text.main))
+
+		[Stack]
+
+			Max Depth = 4			Call Chain = main
+
+
+		[Called By]
+
+			 * __rt_entry_main
+
+
+Local Symbols
+
+
+Undefined Global Symbols
+
+	_call_atexit_fns (ARM, 0 bytes, Stack size 0 bytes, UNDEFINED)
+
+		[Called By]
+
+			 * exit
